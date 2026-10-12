@@ -34,11 +34,11 @@ description: Rock and band-format music as a style layer (乐队编制风格层)
 |---|---|
 | 打得像不像真人 | `mc-rhythm-section`（★ 通用，不限风格） |
 | 吉他/贝司/鼓的乐器法 | 电吉他与电贝司的乐器法本库不转写，调弦与对 riff 友好的调见本 skill reference §6–§7；鼓组各件的编配见 `mc-rhythm-section` reference §2 |
-| 失真音色怎么做 | 出库 → 声音设计与混音库（本库不覆盖吉他失真效果链；`mc-sound-design` 是合成器音色） |
+| 失真音色怎么做 | 不归本包：吉他失真效果链是录音与混音的事（`mc-sound-design` 是合成器音色） |
 | 频段预算 | `mc-texture-layering` |
 | 曲式 | `mc-form` |
-| 乐队录音的实操 | 出库 |
-| riff 的指板指法、把位、推弦细节 | 出库（本 skill 只管写作与编排，reference 只记页号） |
+| 乐队录音的实操 | 声音（录音）的事，不归本包 |
+| riff 的指板指法、把位、推弦细节 | 不归本包（本 skill 只管写作与编排，reference 只记页号） |
 | 拍号与 groove 的通用理论 | `mc-rhythm-groove`（本 skill 只记 riff 相关的拍号效果，reference §4） |
 
 ---
@@ -134,7 +134,7 @@ description: Rock and band-format music as a style layer (乐队编制风格层)
 
 ## 4. ★ 实测：摇滚的开场铺得最少
 
-仓库实测语料，各风格"开场就在场的乐器占全部 roster 的比例"：
+Cambridge-MT 多轨实测（每个风格 10 首），各风格"开场就在场的乐器占全部 roster 的比例"：
 
 | 风格 | 开场在场比例 |
 |---|---|
@@ -431,7 +431,7 @@ Rooksby 列出的位置：**intro；主歌里持续；主歌与副歌之间的�
 
 ## 附：来源
 
-- **实测**：仓库实测语料——
+- **实测**：Cambridge-MT 多轨——
   `rock` 10 首、`Alt-Rock---Blues---Country-Rock---Indie---Funk---Reggae` 10 首。
   ★ **§4 那条"开场 8%"是本 skill 最实的一条依据。**
 - **和声的失效条件**：`mc-harmony` [reference.md](../mc-harmony/reference.md) §5、

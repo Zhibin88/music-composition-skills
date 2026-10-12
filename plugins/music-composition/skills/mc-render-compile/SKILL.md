@@ -43,7 +43,7 @@ ARR-SPEC（唯一 IR）
 | ABC / MusicXML / MIDI 怎么生成 | `mc-symbolic-score` |
 | 生成回来像不像 AI | `mc-ai-tell-audit` |
 | 照做率怎么算 | 定义在 `mc-ai-tell-audit` §3.1；本 skill §6 只管 honors 三档怎么影响计分 |
-| 具体某个后端的权重放哪、节点叫什么 | [`backends.yaml`](../mc-workflow/backends.yaml)（包内副本）（**数据**） |
+| 具体某个后端的权重放哪、节点叫什么 | [`backends.yaml`](../mc-workflow/backends.yaml)（**数据**） |
 | 风格描述里该写什么风格词 | `mc-style-*`（L3） |
 
 ---
@@ -187,7 +187,10 @@ female vocal with breathy tone mixed back, warm tape saturation
 
 - 歌词按段落切开，**与标签一一对应**
 - ★ 段落内的换行**会影响断句**——它不只是排版，后端会当成乐句边界读
-- 与**作词库**的接口：`LYR-SPEC` 的段落 id 必须与 `form[].id` 一致（→ `mc-workflow` §5.1）
+- **歌词从哪来**：本 skill 只编译本包这一侧（段落标签、风格描述、排除词、符号路径）；歌词这一侧从 `meta.upstream.lyrics.sections` 读，那里的 `id` 就是 `form[].id`，按 id 把每段的行放到对应标签下面。它也可以是同一首歌的歌词规格单：按 `meta.upstream.lyrics.source` 找到，按段落 id 取行，行照原样用，不改字、不重新分行
+- 段落 id 对不上（歌词里有 `form` 没有的段，或反过来）→ 不猜，照 `form[]` 编，对不上的段落写进 `checks.exemptions`，再写一条 `messages` 给作词（`to: lyrics`）。先词后曲时段落 id 由歌词一侧定（`mc-workflow` §5.1），那就改本包的 `form[]` 去对齐
+- 没有歌词时按 `mc-workflow` §2.3 的三种情况处理（不带词、占位音节示意人声节奏、或本包写词并记豁免）
+- 分好的块送进后端时的格式（换行的后果、换气、拖腔、标点与括号、注释不进歌词栏、纯器乐段、哪些后端接受歌词、交之前查什么）见 [reference-lyrics.md](reference-lyrics.md)
 
 ---
 
@@ -314,8 +317,7 @@ YuE2 分两步：**符号规划（模型自己写 ABC）→ 从 ABC 合成音频
 
 ## 附：来源
 
-- 设计依据：本库架构文档 §2.3（编译器 ＋ 后端能力档案）
-- 后端数据：[`backends.yaml`](../mc-workflow/backends.yaml)（包内副本）
+- 后端数据：[`backends.yaml`](../mc-workflow/backends.yaml)
 - ⚠ **MiniMax Music 商业 API 已对新用户关闭**，见 backends.yaml 的档案
 - ⚠ 未确认：YuE2 合成步骤接受的 ABC 方言；它的 musical invariants 与 20 条自查的对应关系
 - **分轨**：人声 AI 味审计要先把人声轨分出来，任何分轨工具都行（demucs 一类，或用户载体自带的），见 `mc-ai-tell-audit` §6.1

@@ -8,7 +8,7 @@
 
 ### 1.1 实测 ARR-SPEC（63 条）
 
-仓库实测语料，由 仓库的反推工具 从 Cambridge-MT 多轨生成。
+从 Cambridge-MT 多轨（60 首）与 3 首华语流行成品逐首自动反推。
 
 **按 `style_layer` 分布**：
 
@@ -44,7 +44,7 @@
 - **能量峰/谷** —— 归一化到 0–10，所有曲子都是 10/0，无区分度
 - **DR / 响度 / 立体声宽度** —— Cambridge-MT 是未混多轨，这些量没有参考价值
 
-**歌本语料（谱面参数，2026-09-17，五本歌本逐页笔记抽成每首一条，不存歌词，n=931）**：
+**歌本语料（谱面参数，2026-09-17，五本歌本逐页读谱、每首抽成一条，不存歌词，n=931）**：
 
 | | 华语四本（n=564） | 英文 Fake Book 1955–1986（n=367） |
 |---|---|---|
@@ -55,11 +55,11 @@
 | 最常见和弦四连（原样记号） | A E A D、G D G D、F C F C、C F G C、C Am G C（各 4 次，样本小） | G C G C ×16、B♭ F C7 F ×14、F B♭ F B♭ ×12、C7 F B♭ F ×11、C F G C ×11 |
 
 读法：英文 fake book 的四连几乎全是 I–IV 与 I–IV–V7 的摆动，B♭ 与 F 调集中在铜管与萨克斯友好的调上；华语歌本和弦标记只在吉他谱里有（83 首），四连的计数太小，只能看出 I–IV–V–I 与 I–vi–V–I 两族。
-BPM 一栏华语只有二十世纪作品有数字，**不能当当代华语流行的 BPM**。原始记录与统计在语料层，只有带 n 的数进 skill。
+BPM 一栏华语只有二十世纪作品有数字，**不能当当代华语流行的 BPM**。这里只列带 n 的数。
 
 ### 1.3 人工标注真值（7 条）
 
-仓库标注数据（工具：仓库标注工具）
+Cambridge-MT 里 7 首，人工听标段落起点（标法见 [SKILL.md](SKILL.md) §3.3）：
 
 AMContra_HeartPeripheral、APZX_CyberMower、DigitalHumans_Electrvm、
 Forkupines_Semantics、MERCMusic_Knockout、MR1103_Flags、SimonLyn_Copper
@@ -68,25 +68,23 @@ Forkupines_Semantics、MERCMusic_Knockout、MR1103_Flags、SimonLyn_Copper
 
 ### 1.4 多轨原始素材
 
-63 条实测 ARR-SPEC 之外，还留了 11 组对应的多轨原始文件（配一份总目录和一份分轨清单），
+实测 ARR-SPEC 之外，留一部分对应的多轨原始文件（配总目录和分轨清单），
 用来在结果可疑时回头核对某条实测数据是不是测准了。
-这一层不参与判据计算，只做溯源，所以条目数比实测语料少（11 对 63）是正常的，不是漏标。
+这一层不参与判据计算，只做溯源，所以不必每条实测都留。
 
-### 1.5 实验记录
+### 1.5 三次测量
 
-仓库实验记录（不随包发布，结论已抄进本 skill）：
-
-| 记录 | 内容 |
-|---|---|
-| 度量标定 | 照做率的权重与零点 |
-| 拍速校准 | 56 首真值 |
-| 规则佐证第一轮 | ★ 佐证表第一轮结果 |
+| 测量 | 在什么上测 | 结论在哪 |
+|---|---|---|
+| 照做率零点 | 一份 City Pop 规格比三首与它无关的华语成品 | `mc-ai-tell-audit` §3.2 |
+| 拍速校准 | Cambridge-MT 多轨里自带标注速度的 56 首 | 本文件 §1.2（BPM 为什么不可引用） |
+| 规则佐证第一轮 | Cambridge-MT 多轨 62 首 | [SKILL.md](SKILL.md) §4.2 |
 
 ---
 
 ## 2. 曲目 → 技法 索引
 
-**这些不在音频语料里，来自书本笔记，用于"找一个例子"。**
+**这些不在音频语料里，来自书本，用于"找一个例子"。**
 
 ### 2.1 和弦进行 → 名曲
 
@@ -140,7 +138,7 @@ Forkupines_Semantics、MERCMusic_Knockout、MR1103_Flags、SimonLyn_Copper
 # 案例：<曲名> — <为什么选它>
 source: { artist: , title: , year: , why_chosen: }
 
-# 机器能测的（用 仓库的反推工具 生成，别手填）
+# 能测的（按实测填，测不准的标"估算，非实测"）
 measured:
   tempo: / key: / meter: / duration:
   sections: [{t: "0:00", bars: , name: , energy: }]

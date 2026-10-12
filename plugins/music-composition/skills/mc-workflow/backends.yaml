@@ -99,7 +99,7 @@ backends:
       - audio_ace_step_1_5_split_4b     # 4B LLM 版，音乐理解更强
       - audio_ace_step_1_5_checkpoint   # AIO
     note: >
-      ★ 原架构完全漏掉的一族。一个模型五个变体，**变体本身就是可调的旋钮**：
+      ★ 容易漏掉的一族。一个模型五个变体，**变体本身就是可调的旋钮**：
       Turbo 用来快速试规格、SFT 用 CFG 调提示词贴合度、4B-LLM 版理解力最强。
       做 AB 时这比换模型更好控——同族内变量少。
     accepts:

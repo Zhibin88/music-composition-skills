@@ -31,13 +31,13 @@ description: Synth and timbre design as an arrangement decision (音色设计) -
 |---|---|
 | 真实乐器的选择与混合音色 | `mc-orchestration` |
 | 这个音色占哪个频段、和谁打架 | `mc-texture-layering` |
-| EQ 频点、压缩比、总线处理 | `mc-mix-intent`（意图）／出库混音库（实操） |
-| 影视音效、Foley、环境声 | 出库 → 声音设计与混音库（**同名不同事，别混**） |
+| EQ 频点、压缩比、总线处理 | `mc-mix-intent`（意图）／实操是混音的事 |
+| 影视音效、Foley、环境声 | **声音**（音效、拟音）的事（**同名不同事，别混**） |
 | 具体风格的音色配方（Detroit techno 贝斯怎么调） | [reference.md](reference.md) 的配方表 |
-| 采样的选择与切片 | `mc-style-hiphop` §6.3–6.5 与其 reference §1–2（选材、切片、loop 搭建）；采样库产品选型出库 |
+| 采样的选择与切片 | `mc-style-hiphop` §6.3–6.5 与其 reference §1–2（选材、切片、loop 搭建）；采样库产品选型不归本包 |
 
 > ★ 命名提醒：本库的 `mc-sound-design` 指的是**乐音音色的合成与设计**；
-> 影视意义上的"声音设计"（音效、拟音、空间）是**另一个库**。
+> 影视意义上的"声音设计"（音效、拟音、空间）是**声音**这一职能的事，不归本包。
 
 ---
 
@@ -266,6 +266,6 @@ description: Synth and timbre design as an arrangement decision (音色设计) -
   （24 音色設計的定理、25 從初始設定開始、09 濾波器①、36 正弦波貝斯／差音）。页码为该书页。
 - 各风格的具体音色配方（电音放克粗犷贝斯、Detroit techno、IDM、Electro House、
   嘻哈肥厚贝斯、R&B 抒情、鼓打贝斯等 10+ 种）整理在 [reference.md](reference.md)。
-- 竹内一弘《EDM 制作》的 EQ／压缩章节**不在本 skill**——归 `mc-mix-intent` 与出库混音库。
+- 竹内一弘《EDM 制作》的 EQ／压缩章节**不在本 skill**——意图归 `mc-mix-intent`，参数是混音的事。
   
 - 差音的声学原理另见 **Howard & Angus《音乐声学与心理声学》**（缺失基频 / missing fundamental）。

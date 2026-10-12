@@ -1,6 +1,6 @@
 ---
 name: mc-style-chinese-pop
-description: Mandarin and Cantonese pop as a style layer (华语流行风格层). What is actually specific to Chinese-language pop rather than borrowed wholesale from J-pop and Anglo-American pop, the transfer table for what may and may not be carried in or out, the tone-melody constraint that shapes Mandarin and Cantonese melody writing and why it belongs to the lyrics library, what the corpus can currently support and what it cannot, and the declared gaps. Use when writing or arranging Mandarin or Cantonese pop, when deciding whether a J-pop or Western device fits, when a melody fights the words, or when choosing references. 华语流行、中文流行、国语、粤语、倒字、协音、华语编曲。
+description: Mandarin and Cantonese pop as a style layer (华语流行风格层). What is actually specific to Chinese-language pop rather than borrowed wholesale from J-pop and Anglo-American pop, the transfer table for what may and may not be carried in or out, the tone-melody constraint that shapes Mandarin and Cantonese melody writing and why judging it belongs to the lyricist, what the corpus can currently support and what it cannot, and the declared gaps. Use when writing or arranging Mandarin or Cantonese pop, when deciding whether a J-pop or Western device fits, when a melody fights the words, or when choosing references. 华语流行、中文流行、国语、粤语、倒字、协音、华语编曲。
 ---
 
 # 华语流行风格层（Chinese Pop）
@@ -15,7 +15,7 @@ description: Mandarin and Cantonese pop as a style layer (华语流行风格层)
 | 任务 | 读 |
 |---|---|
 | **判断 J-POP / 欧美的手法能不能用** | ★ §2 移植表 |
-| 旋律和歌词打架 | §3 倒字与协音（★ **但主责在作词库**） |
+| 旋律和歌词打架 | §3 倒字与协音（★ **但判定与修正是作词的事**） |
 | 语料里能查到什么 | §4 |
 | 粤语 | §5 |
 | 想知道还缺什么 | §6 |
@@ -24,12 +24,12 @@ description: Mandarin and Cantonese pop as a style layer (华语流行风格层)
 
 | 不归这里 | 归哪 |
 |---|---|
-| **倒字/协音的判定与修正** | ★ **作词库 `lyric-writing`**（`lw-tone-check`）。本 skill 只说它对**编曲**的约束 |
+| **倒字/协音的判定与修正** | ★ **作词**的事。本 skill 只说它对**编曲**的约束（§3.2），和写旋律时自查的判法（§3.1、§3.3） |
 | 和弦进行本身 | `mc-progressions`、`mc-harmony` |
 | 通用编曲决策 | L2 各 skill |
 | 民族乐器的乐器法 | `mc-orchestration` |
 | 中国音乐的过程性结构、展衍、起承转合 | `mc-form` reference.md §5 |
-| 散慢中快散、板腔体、曲牌体 | 本系列编剧库的传统戏曲层，本包不覆盖 |
+| 散慢中快散、板腔体、曲牌体 | 传统戏曲的结构，本包不覆盖 |
 | 歌本谱例 | 本 skill §4.2 |
 
 ---
@@ -73,7 +73,7 @@ description: Mandarin and Cantonese pop as a style layer (华语流行风格层)
 普通话有四个声调，**每个字自带一条音高走向**。
 如果旋律进入这个字的音程方向与字的调型冲突，听众就会听成**另一个字**——这叫**倒字**。
 
-**作词库 `lw-tone-check` 的判定模型**（仓库内部有同模型的检测器脚本，不随包发布）：
+**判定模型**：
 
 ```python
 contour  = TONE_PITCH[t][1] - TONE_PITCH[t][0]   # 本字的调型
@@ -83,13 +83,17 @@ elif contour < 0 and incoming > 0: 风险          # 去声该降却上行
 elif contour == 0 and abs(incoming) >= 3: 风险   # 平调被大跳带出走向
 ```
 
+`TONE_PITCH` 取赵元任五度标调里每个调的起点与终点：阴平 55（平）、阳平 35（升）、上声 21（降；连读取半上，全上 214 只在单念和句末出现）、
+去声 51（降）、轻声约 3（平，本来就轻短，权重减半）。落到旋律上就三句话：**阳平字别被下行进入，去声、上声字别被上行进入，
+平调字别被三个半音以上的跳进带进来。**
+
 ★ **注意这个模型的关键**：比较的是**进入本字的旋律音程**与**本字自己的调型**，
 **不是**"前一个字的尾音 vs 后一个字的头音"。
 （后者是第一版的写法，它测不出教科书里的标准案例。）
 
 ### 3.2 对编曲的三条后果
 
-**判定与修正归作词库，但它会反过来约束编曲：**
+**判定与修正是作词的事，但它会反过来约束编曲：**
 
 1. ★ **旋律的大跳位置不自由** —— 大跳落在哪个字上，那个字就有倒字风险。
    → 这限制了 `mc-melody` §3 的跳进安排
@@ -101,7 +105,7 @@ elif contour == 0 and abs(incoming) >= 3: 风险   # 平调被大跳带出走向
 ### 3.3 自检动作
 
 > **把每段的旋律和词一起念一遍。念出来像别的字，就是倒字。**
-> 系统一点的判法用作词库 `lw-tone-check` §2.3：只查每段最高音、每句首字、大跳落点三类位置。
+> 系统一点的判法：只查每段最高音、每句首字、大跳（五个半音以上）落点三类位置，用 §3.1 的模型比进入音程与字的调型。
 
 ---
 
@@ -109,7 +113,7 @@ elif contour == 0 and abs(incoming) >= 3: 风险   # 平调被大跳带出走向
 
 ### 4.1 反向 ARR-SPEC（3 条）
 
-仓库实测语料 里 `style_layer: mc-style-chinese-pop` 的有 **3 条**：
+本库实测的反向 ARR-SPEC 里 `style_layer: mc-style-chinese-pop` 的有 **3 条**（3 首华语流行成品）：
 
 | 指标 | 值 |
 |---|---|
@@ -149,7 +153,7 @@ elif contour == 0 and abs(incoming) >= 3: 风险   # 平调被大跳带出走向
 
 ### 4.3 ⚠ 一次统计尝试及其结果（诚实记录）
 
-**做过的事**：从《我的流行吉他》系列的笔记里提取"1=X"调号与逐段和声进行，
+**做过的事**：从《我的流行吉他》系列歌本里提取"1=X"调号与逐段和声进行，
 转成级数，统计四和弦窗口。
 
 **结果**：只解析出 **10 首**，最常见的窗口是
@@ -163,14 +167,13 @@ elif contour == 0 and abs(incoming) >= 3: 风险   # 平调被大跳带出走向
 
 ## 5. 粤语：声明为后加层
 
-**用户的原话**：
-> **"粤语韩语不应该成为 block 我们的进度，我们架构层面本来就是分层＋组合，本来就可以后期加的。"**
+> **粤语、韩语不挡进度：本库本来就是分层＋组合，这类语言层可以后期加。**
 
 **所以粤语在这里是一个声明的接口，不是一个空洞：**
 
 | 项 | 说明 |
 |---|---|
-| **协音** | 粤语九声，约束比普通话四声**严得多**。判定归**作词库** |
+| **协音** | 粤语九声，约束比普通话四声**严得多**。判定是**作词**的事 |
 | **本 skill 能说的** | 只有"它存在且更严"，不给具体规则 |
 
 ★ **不要在底本读完之前编造粤语规则。** 粤语协音是有精确体系的，猜出来的一定是错的。
@@ -194,7 +197,7 @@ elif contour == 0 and abs(incoming) >= 3: 风险   # 平调被大跳带出走向
 | `meta.style_layer` | `mc-style-chinese-pop` |
 | `form[].note` | ★ 同旋律不同词的段落要标"需复查倒字" |
 | `vocal.persona` | 语言（国语/粤语）要写进去——**它影响后端选的音色库** |
-| **与 LYR-SPEC 的耦合** | ★ 华语里这个耦合比英语紧得多（§3.2）。共享字段见 `mc-workflow` §5.1 |
+| **与歌词的耦合** | ★ 华语里这个耦合比英语紧得多（§3.2）。同一首歌的歌词从 `meta.upstream.lyrics` 读；共享六字段谁定谁读见 `mc-workflow` §5.1 |
 
 ---
 
@@ -216,5 +219,5 @@ elif contour == 0 and abs(incoming) >= 3: 风险   # 平调被大跳带出走向
 - **语料**：《同一首歌》歌本、中文流行曲集（cnpop-2012、cnpop-gtr-1/2/4）——
   ★ **它们是歌本不是理论书**
 - **粤语底本**：黄志华《粤语流行曲四十年》
-- **实测**：仓库实测语料 的 3 条
-- **倒字判定**：作词库 `lw-tone-check`（仓库内部另有检测器脚本，不随包发布）
+- **实测**：3 首华语流行成品反推的 3 条反向 ARR-SPEC
+- **倒字判定**：§3.1 的模型；调值用赵元任的五度标调

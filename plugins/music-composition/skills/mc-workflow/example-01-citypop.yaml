@@ -268,3 +268,11 @@ checks:
     - "[x] melody_register 有对比：A 段中低，C 段中高，D 段低，C3 高"
     - "[x] 留白处：D 段最后 2 小节人声停住不唱，只有萨克斯——'后悔的那一瞬'不说出来"
   exemptions: []
+
+# 消息通道（schema §5.3）：给混音的一条，示范写法
+messages:
+  - from: music
+    to: sound
+    about: ["mix_intent.dynamics", "arrangement.subtraction_events"]
+    says: "D 段比 C2 低 6 dB 是全曲唯一的大落差，C2 前最后半拍的全体静止也是有意的；-10 LUFS 的目标下请留住这两处，别让总线压缩把它们填平。留不住的话回一句，本包改 C3 的编制来补"
+    status: open

@@ -8,7 +8,7 @@ description: Compiling ARR-SPEC into symbolic notation (符号乐谱输出) - AB
 **一个发射器，四个目标格式，两个用途。**
 
 ```
-ARR-SPEC（+ LYR-SPEC 的歌词）
+ARR-SPEC（+ meta.upstream.lyrics 的歌词）
    ↓  mc-symbolic-score
    ├─→ ABC        → YuE2 的 abc= 输入（★ 让规格被"执行"而不是"提示"）；大模型的母语
    ├─→ MusicXML   → 记谱软件 / 交接给乐手（领奏谱：旋律、和弦、歌词、段落、力度、换气）
@@ -38,7 +38,7 @@ ARR-SPEC（+ LYR-SPEC 的歌词）
 |---|---|
 | 提示词、段落标签、后端选择 | `mc-render-compile` |
 | 旋律/和声/对位的内容本身 | L1 各 skill |
-| 用什么音源、采样库选型、keyswitch | 出库 → 制作工具库（不在本包）；MIDI CC 在配器上的含义归 `mc-orchestration` reference §5 |
+| 用什么音源、采样库选型、keyswitch | 不归本包（用哪家音源由制作环境定）；MIDI CC 在配器上的含义归 `mc-orchestration` reference §5 |
 | MIDI CC 在配器上的含义 | `mc-orchestration` reference §5 |
 | 量化、velocity 的**律动**设计 | `mc-rhythm-section` |
 | 记谱法的完整规范（连音线、装饰音写法） | [reference.md](reference.md) |
@@ -264,7 +264,7 @@ YuE2 官方仓库自带 `skills/yue2-music/`（SKILL.md 格式，含"检查音�
 发射器最常见的 bug 是段落边界算错，而那个错误在音频里表现为"结构乱了"，
 很容易被误判成后端不听话。
 
-**这三步用眼睛就能查**；仓库内部若做自动化也不随包发布。
+**这三步用眼睛就能查**。
 
 实测过的一条路（2026-09）：本 skill 写法的 ABC（含 `w:` 行、引号和弦、`%` 段落注释、`V:` 头）用 music21 解析零警告，能直接转出 MIDI 与 MusicXML，MIDI 配任意 GM 音色就是第 3 步的最简渲染，不经过生成模型，倒字与旋律密度在这一步就能听到。两个注意：music21 不读 `w:` 行，交给乐手的 MusicXML 要用会读 `w:` 的转换器（abc2xml、abcm2ps 一类）或按"每个音符领一个音节"自行贴回；引号和弦默认不发声，想听和声垫底要自己把它们展开成一条钢琴声部。
 
@@ -291,7 +291,7 @@ YuE2 官方仓库自带 `skills/yue2-music/`（SKILL.md 格式，含"检查音�
 | `vocal.breath_points` | `!breath!` | breath-mark | 无 | | §4 |
 | `mix_intent.sound_stage[].pan` | 无 | midi-instrument 的 pan | cc10 | | §5.1 |
 | `depth_map` | 无 | 无 | cc91 | | §5.2 |
-| LYR-SPEC `lyrics[].lines` | `w:` 行 | lyric，syllabic=single，中文一字一音节 | 无 | 歌词行 | §3 |
+| `meta.upstream.lyrics.sections[].lines` | `w:` 行 | lyric，syllabic=single，中文一字一音节 | 无 | 歌词行 | §3 |
 | `render.yue.abc` | 本体 | | | | §7 |
 | `render.musicxml` / `render.midi` / `render.chordpro` | | 目标开关 | 目标开关 | 目标开关 | §4 §5 |
 

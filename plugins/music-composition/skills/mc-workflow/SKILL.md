@@ -1,6 +1,6 @@
 ---
 name: mc-workflow
-description: Entry point and router for the music composition library (作曲编曲工作流与路由). The S0-S7 stage table from brief to delivered audio, which skill to load for which task, the full-library boundary table that prevents two skills claiming the same decision, the ARR-SPEC gate rules, and the three testing devices (routing, text-layer A/B, compliance rate). Load this FIRST for any request that will produce or change an ARR-SPEC (a whole track, a section rewrite, a generation run). A single knowledge question or a single-part task goes straight to the owning skill without this one. Use when starting a new track, when unsure which skill owns a question, when a spec fails lint, when a generated result sounds wrong and you need the diagnostic path, or when handing work to another library. 作曲、编曲、工作流、路由、该读哪个 skill、ARR-SPEC、出歌流程。
+description: Entry point and router for the music composition library (作曲编曲工作流与路由). The S0-S7 stage table from brief to delivered audio, which skill to load for which task, the full-library boundary table that prevents two skills claiming the same decision, the ARR-SPEC gate rules, and the three checks (boundary tables against style bleed, text-layer A/B, compliance rate). Load this FIRST for any request that will produce or change an ARR-SPEC (a whole track, a section rewrite, a generation run). A single knowledge question or a single-part task goes straight to the owning skill without this one. Use when starting a new track, when unsure which skill owns a question, when a spec fails lint, when a generated result sounds wrong and you need the diagnostic path, or when handing the spec to another department (lyrics, mixing, editing). 作曲、编曲、工作流、路由、该读哪个 skill、ARR-SPEC、出歌流程。
 ---
 
 # 作曲编曲工作流与路由（Workflow & Routing）
@@ -25,8 +25,8 @@ description: Entry point and router for the music composition library (作曲编
 | 生成回来了，不对劲 | §4 诊断路径 |
 | 不知道某个问题归哪个 skill | §2 全库边界表 |
 | lint 不过 | §3.2 |
-| 要交给别的库 / 别的人 | §5 跨库接口 |
-| 要跑测试 | §6 三个测试装置 |
+| 要交给作词、混音、剪辑等别的部门 / 别的人 | §5 对外接口 |
+| 要检验：选的 skill 对不对、两版哪个好、后端照做没有 | §6 三个检验办法 |
 | **要混合两种风格**（rap + 中国风、city pop + EDM…） | ★ §2.4 |
 
 ---
@@ -50,7 +50,7 @@ description: Entry point and router for the music composition library (作曲编
 ### 1.1 ★ 三条不许跳的顺序
 
 1. **`intent` 不齐不许写 `form`** —— 这是整套流程唯一的硬门禁
-2. **17 条不过不许编译** —— 不过说明规格没写完，不是脚本挑刺。★ 没有 Python 就按 §3.0 逐条自查，**不要重写 lint**
+2. **17 条不过不许编译** —— 不过说明规格没写完，不是挑刺。★ 按 §3.0 逐条自查，**不要为此写 lint 脚本**
 3. **照做率不过不许用耳朵返工** —— 先改规格重生成，耳朵是最后一小步
 
 > 第 3 条最容易破。"我听着不对，我调一下混音"——
@@ -104,8 +104,8 @@ description: Entry point and router for the music composition library (作曲编
 | `mc-rhythm-groove` ⇄ `mc-rhythm-section` | **groove 管节奏本身是什么，rhythm-section 管怎么把它打出来像人** |
 | `mc-texture-layering` ⇄ `mc-mix-intent` | **texture 的解法是"改写"（换音区/减音符/交替），mix-intent 的解法是"改混"（让频/侧链/动态）。能改写解决的不许留给混音** |
 | `mc-orchestration` ⇄ `mc-sound-design` | **orchestration 管真实乐器与混合，sound-design 管合成音色的设计** |
-| `mc-sound-design` ⇄ 库三 | 本库的 sound-design 是**乐音音色**；影视意义的"声音设计"（音效/拟音/空间）是**另一个库**，同名不同事 |
-| 本库 ⇄ 作词库 | **词的一切归作词库**，包括词曲对齐（符割り、字余り、倒字、协音）——那是词的工序 |
+| `mc-sound-design` ⇄ 声音（音效、拟音） | 本库的 sound-design 是**乐音音色**；影视意义的"声音设计"（音效/拟音/空间）是**声音**这一职能的事，同名不同事 |
+| 本库 ⇄ 作词 | **词的一切是作词的事**，包括词曲对齐（符割り、字余り、倒字、协音）——那是词的工序；本库读同一首歌的歌词（`meta.upstream.lyrics`），共享六字段谁定谁读见 §5.1 |
 
 ### 2.4 ★ 风格混合：不是调匀，是分维度签字
 
@@ -140,16 +140,16 @@ description: Entry point and router for the music composition library (作曲编
 （例如 city pop 的移植表说"抢拍贝司可搬"，那 base 是 city pop 时 `groove` 让给别人就要三思）。
 
 **路由上**：混合 brief 应**读全部被点名的 L3 skill**，这不算污染；
-读了**没被点名**的风格才是。测试集从 v3 起区分这两种情况。
+读了**没被点名**的风格才是。
 
-### 2.3 一律出库的东西
+### 2.3 不归本包的东西
 
-| 内容 | 去哪 |
+| 内容 | 归哪个职能 |
 |---|---|
-| EQ 频点、压缩比、混响参数、总线链、母带 | **库三：声音设计与混音库** |
-| 影视音效、Foley、环境声、空间设计 | **库三** |
-| 跟画面走的配乐结构、cue sheet、spotting | **库二：配乐库** |
-| 歌词写作、押韵、意象、叙事人称 | **作词库 `lyric-writing`**。★ **词的三种情况**：用户**没提词** → 可出可不出，出了就在 `checks.exemptions` 记一条"词未走作词库工序"；用户明确要**纯音乐 / 轻音乐 / 器乐** → 一个字都不加，`vocal` 留空；用户**明确要词** → 必须出词，作词库在场就走它，不在场就按本库的 `mc-vocal-direction` 写并记豁免。只示意人声节奏（rap 的 flow、副歌字数）时用占位音节（da-da / 拉拉）或 X 标记 |
+| EQ 频点、压缩比、混响参数、总线链、母带 | **声音（混音、母带）**；本包只给 `mix_intent` 这份意图 |
+| 影视音效、Foley、环境声、空间设计 | **声音**（录音、音效） |
+| 跟画面走的配乐结构、cue sheet、spotting | **配乐**（为画面写音乐） |
+| 歌词写作、押韵、意象、叙事人称 | **作词**。★ **词的三种情况**：用户**没提词** → 可出可不出，出了就在 `checks.exemptions` 记一条"词未经作词工序"；用户明确要**纯音乐 / 轻音乐 / 器乐** → 一个字都不加，`vocal` 留空；用户**明确要词** → 必须出词，有同一首歌的歌词（`meta.upstream.lyrics`）就照它，没有就按本库的 `mc-vocal-direction` 写并记豁免。只示意人声节奏（rap 的 flow、副歌字数）时用占位音节（da-da / 拉拉）或 X 标记 |
 | 商业流程（compe、仮歌、版权、分成） | 不做 |
 
 ---
@@ -164,7 +164,7 @@ description: Entry point and router for the music composition library (作曲编
 
 | 用途 | 怎么用 |
 |---|---|
-| **对外交接** | 给混音师/乐手/别的库看的，是这一份 |
+| **对外交接** | 给混音师、乐手、作词和别的部门看的，是这一份（§5） |
 | **AB 测试对象** | 改一个字段 → 重生成 → 比对。**变量可控** |
 | **编译源** | `mc-render-compile` 把它编译成 Suno prompt / YuE 输入 / MIDI |
 | **验收基准** | 生成回来的东西逐字段对照它，看后端照做了多少 |
@@ -284,7 +284,7 @@ description: Entry point and router for the music composition library (作曲编
 
 | | 问什么 | 怎么算 |
 |---|---|---|
-| **照做率** | 后端照着规格做了多少 | 逐字段对照规格听/看；仓库内部的度量工具能算成 0–100，不随包发布 |
+| **照做率** | 后端照着规格做了多少 | 逐字段对照规格听/看；0–100 的参考线见 §6.3 |
 | **AI 味旗标** | 成品有没有机器指纹 | `mc-ai-tell-audit` 的清单，独立计数 |
 
 **照做率 100 的东西完全可能满是 AI 味**——那说明规格写得像 AI。
@@ -292,35 +292,53 @@ description: Entry point and router for the music composition library (作曲编
 
 ---
 
-## 5. 跨库接口
+## 5. 对外接口
 
-| 对方 | 交接物 | 方向 |
+**本库管一首歌的作曲与编曲决定**（调、速度、段落、和声、主题材料、谁什么时候进退、能量曲线、怎么唱、混音要达到什么），产出是 ARR-SPEC。不假设下游是谁、用什么工具；对外只经规格单：交出去的字段、有就读的上游字段（§5.2）、`messages`（§5.3）。字段怎么理解：`ARR-SPEC.schema.md` §5。
+
+| 职能 | 不归本库的 | 交出去 |
 |---|---|---|
-| **作词库** | LYR-SPEC ⇄ ARR-SPEC | **双向**：先曲后词走 ARR→LYR，先词后曲走 LYR→ARR。共享 `form[]` 的段落 id 与小节数 |
-| **配乐库**（库二） | ARR-SPEC + 时间码表 | 单向：配乐要跟画面，段落由 spotting 决定而非曲式 |
-| **声音设计与混音库**（库三） | `mix_intent` 段 | 单向：我们只给意图，参数归他们 |
-| **影视线** | 成品音频 + stems | 单向 |
+| 作词 | 词怎么写：押韵、意象、叙事人称；字怎么安到音上（符割り、字余り、倒字、协音） | 共享六字段（§5.1）；`vocal.phrasing／breath_points`、`hooks.vocal_hook`、`intent.emotional_arc`、`form[].melody_register` |
+| 声音（混音、母带） | EQ 频点、压缩比、混响参数、总线链、母带；录音；影视意义的音效与拟音 | `mix_intent`（只写意图）、`roster`、`depth_map`、`spectrum_budget`、`subtraction_events`、`vocal.pitch_policy／stacking`；`deliverable` 含 `stems` 时交分轨 |
+| 配乐（为画面写音乐） | 跟画面走的结构：spotting、cue sheet、从哪一帧进 | `meta.tempo／tempo_map／target_duration`、`form[].start_bar／bars`、`material`、`hooks.arrangement_hook`、`energy_curve` |
+| 剪辑环节 | 把音乐放到画面上：切在哪、剪短、接缝 | 同上的时间字段、`subtraction_events`、stems |
 
-### 5.1 与作词库共享的字段（必须一致）
+镜头设计按放音拍时读速度与段落时间，交出去以后再改要先写消息；商用前的许可看 `backends.yaml` 的 `license`（制片与现场）。小节换算成秒的约定见 schema §5.1。
 
-`form[].id` / `form[].bars` / `form[].name` / `meta.tempo` / `meta.key` / `vocal.persona`
+### 5.1 与歌曲另一侧共享的六个字段
 
-**任何一边改了这六项，另一边必须同步。** 这是双向耦合唯一的代价。
+`form[].id` / `form[].bars` / `form[].name` / `meta.tempo` / `meta.key` / `vocal.persona`。两边用同一套段落 id。
+
+- **谁先做谁定。** 先曲后词：本库定，写进自己的字段。先词后曲：从 `meta.upstream.lyrics.shared` 原样读进来，当锁死项用；词的字数和句式反过来约束 `form[].bars`。
+- **后做时不改这六项。** 词放不进这几小节、调或速度唱不下来，就写一条 `messages`（`to: lyrics`），说清改哪一项、为什么；对方接受并改了它自己的规格单，本库再重新读。
+- 只有曲、没有歌词那一侧时，这六项由本库自己定。
+
+完整规则与原文：schema §5.4。
+
+### 5.2 上游：有就读
+
+`meta.upstream.brief／lyrics／picture` 来自谁不重要：有就读（先词后曲时的共享六项是锁死项），没有就按本库自己的分析走——S0 从 brief 起，没有歌词就按 §2.3 的三种情况，没有画面时长就自己定时长。已填的上游字段不改写；冲突时照实写本库的字段，再写消息给来源的职能。
+
+### 5.3 `messages`：怎么收发
+
+- **收**：S0 开工与每次改规格前读 `to: music` 的，交给 `about` 所指字段的 owner（§2.1）；改了标 `accepted`、不改标 `rejected`，`reply` 写改了什么或理由。
+- **发**：如 `{from: music, to: sound, about: "mix_intent.dynamics", says: "D 段比 C2 低 6 dB 是唯一的大落差，母带请留住", status: open}`；`to` 取 `lyrics` `sound` `editing` `shot-design` `writing` `production`。
+- **不等待**：读不到回话就当没有；`open` 不挡自查、不停阶段，交付时原样交出去。
 
 ---
 
-## 6. 三个测试装置
+## 6. 三个检验办法
 
-### 6.1 路由／污染测试（回归测试）
+### 6.1 选 skill 时对照边界表
 
-本库用 20 条典型请求做回归（仓库内，不随包发布），**每加一个 skill 就重跑一次**，看：
+开工前把这首歌要读的 skill 列出来，对照 §2 和各 skill 的边界表看两件事：
 
-1. **路由正确率**：每条 brief 该读的 skill 有没有被选中
-2. **污染率**：不该被选中的 skill 有没有混进来
-   —— 尤其是 L3 风格层，**加一个风格 skill 最容易污染别的风格**
+1. **该读的读了没有**：brief 里每个要做的决定，都有一个 owner 被选中
+2. **不该读的混进来没有**
+   —— 尤其是 L3 风格层，**多读一个没被点名的风格 skill，最容易把它的默认值带进这首歌**（被点名的混合不算，见 §2.4）
 
 > 这就是为什么每个 skill 都必须有「边界：什么不归这个 skill 管」表——
-> 那张表是给路由看的，不只是给人看的。
+> 那张表是给选 skill 时看的，不只是给人看的。
 
 ### 6.2 文本层 AB
 
@@ -333,9 +351,9 @@ description: Entry point and router for the music composition library (作曲编
 
 见 §1 的 S7 与 §4.2。
 
-★ **零点校准**（仓库实验数字，供理解量级，不是交付门槛）：不相关的、制作精良的成品在度量工具上得 **63–66**，
+★ **零点校准**（参考值，供理解量级，不是交付门槛）：拿一份 City Pop 规格（112 BPM、10 段、114 小节）去比三首与它无关、制作精良的华语成品，按字段加权打分得 **63–66**，
 所以我们把 **82 / 70** 当"照做得好 / 勉强"的参考线，不是 60。
-用户侧没有度量工具时，照做率就是逐字段对照后的一个判断，不必算成数。
+逐字段对照时，照做率就是对照后的一个判断，不必算成数。
 
 ---
 
@@ -348,9 +366,6 @@ description: Entry point and router for the music composition library (作曲编
   skills/mc-workflow/ARR-SPEC.template.yaml  空模板
   skills/mc-workflow/backends.yaml           ★ 各后端的 honors 声明
   skills/mc-workflow/example-*.yaml          填好的示例（citypop / 混合 / 反面样本）
-
-仓库内、不随包发布（skill 里提到它们只是标注来源）：
-  本库架构文档、读书笔记（40+ 本）、实验记录与实测语料、度量与实验工具
 ```
 
 ---
@@ -377,9 +392,7 @@ description: Entry point and router for the music composition library (作曲编
 - "city pop"是**风格**，它的鼓型不进 `mc-rhythm-section`，进 `mc-style-citypop-rnb`——
   因为"打得像人"和"打得像 city pop"是两道工序
 - "混音"横跨三层：意图在 `mc-mix-intent`，改写型解法在 `mc-texture-layering`，
-  参数在**库三**——因为它们的裁判不同（作曲判断 / 编曲判断 / 工程判断）
-
-详见 本库架构文档。
+  参数是**混音**的事——因为它们的裁判不同（作曲判断 / 编曲判断 / 工程判断）
 
 ## 附：来源
 

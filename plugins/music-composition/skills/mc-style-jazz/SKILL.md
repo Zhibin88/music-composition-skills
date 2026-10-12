@@ -50,7 +50,7 @@ description: Jazz as a style layer (爵士风格层) - what is specific to jazz 
 
 ## 2. ★ 移植表：哪些可搬、哪些不可搬
 
-**架构文档要求每个 L3 skill 必带这张表。这是防止风格污染的关键。**
+**每个 L3 风格 skill 都带这张表，因为这是防止风格污染的关键。**
 
 | 手法 | 可搬吗 | 说明 |
 |---|---|---|
@@ -206,7 +206,7 @@ Head（主题，一遍或两遍）
 它是"一遍 chorus 有多少小节"（32 小节 AABA 是标准），**不是"这一段多长"**。
 
 **常见 head 形式**：AABA（32 小节）、ABAC、12 小节布鲁斯。
-现成曲目见 。
+现成曲目见 Fake Book（附：来源）。
 
 ---
 
@@ -290,5 +290,5 @@ Head（主题，一遍或两遍）
 - **Jazz Guitar Groove**——
   CAGED、音阶模式、4 音符模进、半音修饰、三连音 pattern。
   ★ **这本原被误归到 `mc-rhythm-section`，实际是即兴词汇，归本 skill 与 `mc-melody`。**
-- **实测数据**：仓库实测语料（jazz-acoustic 10 首）。
+- **实测数据**：Cambridge-MT 多轨实测（jazz-acoustic 10 首）。
 - 爵士和声钢琴实操

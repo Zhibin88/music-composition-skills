@@ -1,7 +1,7 @@
 # mc-progressions 参考：分类速查表
 
 > [SKILL.md](SKILL.md) 放决策与八大名进行；本文件放**按类别翻**的表；
-> [progressions-full.md](progressions-full.md) 放继承自日式包的 122 条完整清单（带书目出处）。
+> [progressions-full.md](progressions-full.md) 放 122 条完整清单（带书目出处）。
 >
 > 一律 **Key = C**（小调类 Key = Am）。
 > `X/Y` = 分数和弦（Y 是低音）；`·` = 一小节内两拍一换；`｜` = 小节线（8 小节型）。

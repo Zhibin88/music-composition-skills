@@ -1,7 +1,7 @@
 # mc-style-hiphop 参考：采样处理、flow 记谱、delivery 参数、术语表
 
 > [SKILL.md](SKILL.md) 讲判断与取舍；本文件放**查表用的细则**。
-> 引用约定：Schloss《Making Beats》写作 `Schloss p0163`；Edwards 两本写作 `《How to Rap》p0142`、`《How to Rap 2》p0031`；Charnas《Dilla Time》无页号，按笔记块号写作 `块 16`，全书章目录见 §6。
+> 引用约定：Schloss《Making Beats》写作 `Schloss p0163`；Edwards 两本写作 `《How to Rap》p0142`、`《How to Rap 2》p0031`；Charnas《Dilla Time》无页号，按**章**写作 `第 8 章`，全书章目录见 reference-vocal.md §6。
 
 ---
 
@@ -27,9 +27,9 @@
 |---|---|---|---|
 | **① 先鼓** | Mr. Supreme：*"Usually you start with the drums … that's the backbone and the heart of it."* | 鼓搭对了，底下放什么都对 | Schloss p0154 |
 | **② 试装** | 找到一段觉得对的声音，先在 downbeat 上**切进去跟着跑**，听合不合再决定采不采 | 这是 DJ 技能对制作人的直接用处 | Schloss p0069 |
-| **③ 截断** | **truncate**：定死每个采样的起点与终点 | 起止点决定 attack 有没有被削掉、尾巴留多长 | 块 8 |
-| **④ 循环与叠层** | loop & layer：让几个采样层同时跑 | 层与层之间是"关系"，不是"配器" | 块 8；Schloss p0165 |
-| **⑤ 定段长** | **用小节数定 intro / verse / chorus 的长度** | MPC 允许非四拍循环："You can loop around every three beats, or five, or six, or seven if you want."（块 8） | 块 8 |
+| **③ 截断** | **truncate**：定死每个采样的起点与终点 | 起止点决定 attack 有没有被削掉、尾巴留多长 | 第 5 章 |
+| **④ 循环与叠层** | loop & layer：让几个采样层同时跑 | 层与层之间是"关系"，不是"配器" | 第 5 章；Schloss p0165 |
+| **⑤ 定段长** | **用小节数定 intro / verse / chorus 的长度** | MPC 允许非四拍循环："You can loop around every three beats, or five, or six, or seven if you want."（第 5 章） | 第 5 章 |
 | **⑥ 切碎重排** | DJ Topspin：只要一个**一拍半**的片段，就想"怎么把它变成十六拍、听起来像现场"；四个一拍半可以拼出六拍 | 碎片长度不必是整拍 | Schloss p0157 |
 | **⑦ 锁住** | "locking up" a beat：各元素进入自我维持的关系 | ★ **锁没锁上是有无的问题**——没锁上就不是 beat | Schloss p0154 |
 | **⑧ 检查垂直干扰** | 采样里从来不止一个声音（八九个人在演奏）；采键盘音色时里面可能带着一个小 hi-hat | **它不在你的拍上，会干扰你的鼓**——这是采样型最常见的隐性冲突 | Schloss p0157–0158 |
@@ -48,7 +48,7 @@
 | **自带呼应** | break 的结尾建立张力、由它自己的开头解决——**call-and-response 是 loop 自带的** |
 | **养 loop** | DJ Kool Akiem：一个 loop 放两三天，"你会听到乐手没试图放进去的东西" |
 
-切碎也能造新和声：Dilla 用 Kool & the Gang《Summer Madness》切出"完全不同的和声进行"（块 11）；Busta《Enjoy Da Ride》同理（块 17）。这与 loop 点造新和弦是同一件事的两个层级。
+切碎也能造新和声：Dilla 用 Kool & the Gang《Summer Madness》切出"完全不同的和声进行"（第 7 章）；Busta《Enjoy Da Ride》同理（第 8 章）。这与 loop 点造新和弦是同一件事的两个层级。
 
 ### 1.4 采样能做、现场演奏做不到的三件事（Schloss p0165–0166）
 
@@ -65,10 +65,10 @@
 | 手法 | 例 | 出处 |
 |---|---|---|
 | 5/4 的爵士片段 loop 进 4/4 鼓型 | "它是 loop，但以完全不同的方式播放"（Stroman） | Schloss p0181 |
-| 3 拍转 4 拍 | 《King Heroin》 | 块 17 |
-| 6 拍采样撞 4 拍鼓 | 采样在每隔一小节的强拍前一点触发 | 块 14 |
-| **7 小节 loop 对 4 小节 beat** | 使 verse 和 chorus 在不可预测的位置开始 | 块 16 |
-| loop 点不在强拍 | 《The Light》 | 块 16 |
+| 3 拍转 4 拍 | 《King Heroin》 | 第 8 章 |
+| 6 拍采样撞 4 拍鼓 | 采样在每隔一小节的强拍前一点触发 | 第 7 章 |
+| **7 小节 loop 对 4 小节 beat** | 使 verse 和 chorus 在不可预测的位置开始 | 第 8 章 |
+| loop 点不在强拍 | 《The Light》 | 第 8 章 |
 
 → 这些都要写进 `form[].note`，并注明韵式已按它调整（§3 最后一行）。
 
@@ -182,7 +182,7 @@ Schloss 第 5 章记的是采样型制作人之间**默认遵守、违反会被�
 
 ### 3.3 flow 要素表：它怎么落在网格上
 
-押韵密度、多音节韵的写法归作词库；这张表只写 flow **与拍的关系**。
+押韵密度、多音节韵的写法是作词的事；这张表只写 flow **与拍的关系**。
 
 | 要素 | 内容 | 出处 |
 |---|---|---|

@@ -16,7 +16,7 @@ description: The corpus layer (语料层) - how real recordings are made to test
 
 | 任务 | 读 |
 |---|---|
-| 想知道某条规则靠不靠谱 | §4 佐证表 ＋ 仓库规则表 |
+| 想知道某条规则靠不靠谱 | §4 佐证表 |
 | 要加一条新规则 | §4.3 流程 |
 | 规则和数据打架了 | ★ §5 |
 | 要找一个真实例子 | §6 |
@@ -70,10 +70,10 @@ description: The corpus layer (语料层) - how real recordings are made to test
 
 ### 2.1 长什么样
 
-仓库实测语料，**63 条**。每条头部就写明了性质：
+本库的实测语料是 **63 条**（Cambridge-MT 多轨 60 首 ＋ 3 首华语流行成品）。每条头部就写明了性质：
 
 ```yaml
-# 实测 ARR-SPEC（语料条目）—— 由 仓库的反推工具 自动生成
+# 实测 ARR-SPEC（语料条目）—— 从音频自动反推生成
 # ★ 只存结构与参数，不存谱面与歌词。intent / hooks 等 TODO 项需人工填。
 ```
 
@@ -95,8 +95,8 @@ description: The corpus layer (语料层) - how real recordings are made to test
 | 和弦（chroma 匹配） | |
 
 ★ **测不了的规则要标出来，不许硬跑。**
-`rules.yaml` 里这类规则标 `evidence: unusable_here`，
-仓库的佐证工具 **跳过而不是给一个假数字**。
+规则表里这类规则标 `evidence: unusable_here`，
+统计时**跳过而不是给一个假数字**。
 
 **本库的语料是多轨分轨，不含成品混音，所以这类规则目前没有数字。**
 
@@ -106,7 +106,7 @@ description: The corpus layer (语料层) - how real recordings are made to test
 
 ### 3.1 为什么需要人工真值
 
-算法测出来的段落边界**本身可信度存疑**（`rules.yaml` 里标 `no_truth`）。
+算法测出来的段落边界**本身可信度存疑**（规则表里标 `no_truth`）。
 没有一份独立的真值，就没法判断一个异常的命中率到底是规则不成立，还是算法本身测错了——
 §5.2 那次"硬编码阈值把命中率压到 16%"就是靠人工真值才翻案的实例。
 所以做了一批人工标注当真值，校准结果见 §3.2。
@@ -125,9 +125,10 @@ description: The corpus layer (语料层) - how real recordings are made to test
 
 ### 3.3 怎么标注
 
-标注工具与 7 份标注文件在仓库里，不随包发布。
+在任何能看波形、能播放的软件里，边听边记下**每个段落起点的秒数**；段落名可填可不填，主要用的是时间点。
+**只标听得出来的边界，拿不准就别标**——这是要当真值用的，标错比不标更糟。标 5 首就能用。
 
-**已标注的 7 首**：
+**本库已标注的 7 首**（Cambridge-MT）：
 AMContra_HeartPeripheral、APZX_CyberMower、DigitalHumans_Electrvm、
 Forkupines_Semantics、MERCMusic_Knockout、MR1103_Flags、SimonLyn_Copper
 
@@ -141,7 +142,7 @@ Forkupines_Semantics、MERCMusic_Knockout、MR1103_Flags、SimonLyn_Copper
 
 | # | 约束 |
 |---|---|
-| **1** | ★ **判据不能复用生成器的定义。** 反向 ARR-SPEC 里的 `subtraction_events` 是 反推工具 按"较前段降 >1 dB"自动填的；拿它去验"真编曲有没有减法"是**循环论证**。所以涉及减法的判据一律**直接从 `energy_curve` 重算**，用一个有音乐意义的阈值（≥3 dB），**不读 `subtraction_events` 字段** |
+| **1** | ★ **判据不能复用生成器的定义。** 反向 ARR-SPEC 里的 `subtraction_events` 是反推时按"较前段降 >1 dB"自动填的；拿它去验"真编曲有没有减法"是**循环论证**。所以涉及减法的判据一律**直接从 `energy_curve` 重算**，用一个有音乐意义的阈值（≥3 dB），**不读 `subtraction_events` 字段** |
 | **2** | ★ **语料测不了的规则要标出来，不许硬跑**（见 §2.2） |
 
 `evidence` 的三个取值：
@@ -172,15 +173,15 @@ Forkupines_Semantics、MERCMusic_Knockout、MR1103_Flags、SimonLyn_Copper
 | **强规则** | "必须" | ✅ 硬检查 |
 | **倾向** | "通常应该" | ❌，进"写完后必过"清单 |
 | **手法** | "可以这么做" | ❌，只在诊断路径里出现 |
-| **挂起** | **不写进 skill** | ❌，留在实验记录里等更多数据 |
+| **挂起** | **不写进 skill** | ❌，只在佐证表里列着，等更多数据 |
 
 ### 4.4 加一条规则的流程
 
-1. 在 仓库规则表 里写：规则 + **可跑的判据** + `evidence`
+1. 把规则写成一条：规则 + **可跑的判据** + `evidence`
 2. 检查是否违反 §4.1 的两条约束
-3. 用仓库的 corroborate 工具跨语料跑判据（维护者步骤，不随包发布）
+3. 拿判据逐首过一遍语料（自然抽样，§1.2），数命中
 4. 按命中率分档（§4.3）
-5. ★ **把结果写进 仓库实验记录**，然后才改 skill
+5. ★ **先把结果记下来**（哪批语料、什么判据、命中多少、分到哪档），然后才改规格或规则
 
 > **规则集是有版本的**。
 > 改了规则集就要重跑，否则前后轮不可比。
@@ -205,7 +206,7 @@ Forkupines_Semantics、MERCMusic_Knockout、MR1103_Flags、SimonLyn_Copper
 
 ### 5.2 另一个实例：硬编码阈值造成的假低命中率
 
-仓库的佐证工具 里曾**硬编码"12 dB 动态范围"**，
+佐证统计时曾把判据**硬编码成"12 dB 动态范围"**，
 把规则 ARR-R-012 的命中率压到 **16%**，差点被报成"教科书是错的"。
 
 **证伪方法**：拿 7 首人工标注真值测 → **5/7 = 71%**。
@@ -231,8 +232,7 @@ Forkupines_Semantics、MERCMusic_Knockout、MR1103_Flags、SimonLyn_Copper
 |---|---|
 | 某个技法的真实用例 | [reference.md](reference.md) 的逐段拆解 |
 | 某个和弦进行用在哪首歌 | `mc-progressions` [reference.md](../mc-progressions/reference.md) §7 名曲索引 |
-| 一首曲子的完整实测参数 | 仓库实测语料（63 条） |
-| 段落边界的人工真值 | 仓库标注数据（7 条） |
+| 各风格的实测参数（中位数） | [reference.md](reference.md) §1.2 |
 | 配器/混合音色的谱例 | `mc-orchestration` [reference.md](../mc-orchestration/reference.md) §4 |
 | 对位的谱例 | `mc-counterpoint` [reference.md](../mc-counterpoint/reference.md) |
 
@@ -250,7 +250,6 @@ Forkupines_Semantics、MERCMusic_Knockout、MR1103_Flags、SimonLyn_Copper
 | **→ L1/L2 各 skill** | 提供"实测：62/62，强规则"这样的证据等级标注 |
 | **→ 20 条自查** | 只有**强规则**才能进自查表 |
 | **→ `mc-ai-tell-audit`** | 零点校准（不相关成品得 63–66）就是在这套语料上测的 |
-| **← 仓库的反推工具** | 语料条目的生成器 |
 | **← 成品混音语料**（★ **缺**） | §2.2 那些 `unusable_here` 的规则需要它 |
 
 ---
@@ -262,17 +261,15 @@ Forkupines_Semantics、MERCMusic_Knockout、MR1103_Flags、SimonLyn_Copper
 - [ ] 语料测不了的规则**标了 `unusable_here`**，没有硬跑出假数字
 - [ ] 命中率异常低时，**先怀疑了判据**（§5.2）
 - [ ] 没有拿佐证表的命中率**机械地**给 lint 检查降级（§5.3）
-- [ ] 改了规则集就**重跑并记进 仓库实验记录**
+- [ ] 改了规则集就**重跑，并把这一轮的结果记下来**
 
 ---
 
 ## 附：现状
 
-**已有**：
-- 仓库实测语料 —— **63 条**实测 ARR-SPEC（Cambridge-MT）
-- 仓库规则表（规则集带版本号）
-- 仓库标注数据 —— 标注工具 + **7 条**人工真值
-- `_corpus/multitracks/` —— 11 项（含 `_index.json`、`_parts.json`）
-- 仓库实验记录：度量标定 / 拍速校准 / 规则佐证第一轮
+**本 skill 的数字建立在**：
+- **63 条**实测 ARR-SPEC（Cambridge-MT 多轨 60 首 ＋ 3 首华语流行成品）
+- 一份带版本号的规则集（第一轮佐证表见 §4.2）
+- **7 首**人工标注的段落边界真值（§3）
 - 拍速校准：**56 首真值**
 

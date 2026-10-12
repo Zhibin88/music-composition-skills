@@ -1,6 +1,6 @@
 ---
 name: mc-rhythm-section
-description: Rhythm section arranging and MIDI programming (节奏组与打ち込み) - drums, bass and harmony instruments as one unit, and how to make programmed parts sound played. Includes a style-by-style drum pattern and tempo lookup (rock, funk, R&B, hip hop, jazz, blues, Afro-Cuban, Brazilian, country, metal, techno): kick/snare/cymbal roles, tempo ranges, straight/swing/shuffle/half-time feel, signature fills and hi-hat handling; groove classification by feel and subdivision; the order in which to pick a pattern; partial and percentage quantization; push/pull with real magnitudes; linear drumming; ghost notes; the top/bottom/left/right map of a kit; and the three ways a bass sits against the kick (locked / answering / interlocking). Use when choosing a drum pattern or tempo for a style, when programmed drums sound mechanical, when deciding what to quantize, or when filling the tempo/groove/push_pull/fill_policy/bass_kick_relation fields of an ARR-SPEC. 节奏组、各风格鼓型、速度区间、groove 分类、贝司、打ち込み、量化、律动、幽灵音符、线性鼓、抢拍拖拍、过门。
+description: Rhythm section arranging and MIDI programming (节奏组与打ち込み) - drums, bass and harmony instruments as one unit, and how to make programmed parts sound played. Includes a style-by-style drum pattern and tempo lookup (rock, funk, R&B, hip hop, jazz, blues, Afro-Cuban, Brazilian, country, metal, techno); kick/snare/cymbal roles, tempo ranges, straight/swing/shuffle/half-time feel, signature fills and hi-hat handling; groove classification by feel and subdivision; the order in which to pick a pattern; partial and percentage quantization; push/pull with real magnitudes; linear drumming; ghost notes; the top/bottom/left/right map of a kit; and the three ways a bass sits against the kick (locked / answering / interlocking). Use when choosing a drum pattern or tempo for a style, when programmed drums sound mechanical, when deciding what to quantize, or when filling the tempo/groove/push_pull/fill_policy/bass_kick_relation fields of an ARR-SPEC. 节奏组、各风格鼓型、速度区间、groove 分类、贝司、打ち込み、量化、律动、幽灵音符、线性鼓、抢拍拖拍、过门。
 ---
 
 # 节奏组与打ち込み（Rhythm Section & Programming）
@@ -40,7 +40,7 @@ description: Rhythm section arranging and MIDI programming (节奏组与打ち�
 | **切分、先现本身怎么记、怎么算** | `mc-rhythm-groove`（L1） |
 | **hip-hop 里直与摇并存的"第三种时间感"** | `mc-style-hiphop` |
 | **某一风格逐小节的鼓型模板** | [reference-styles.md](reference-styles.md) §8（按家族给 kick／snare／hat 的落点与速度区间，不按风格名）；该风格有偏离时再看它的 L3 skill |
-| 鼓的 EQ、压缩、并行压缩 | 出库 → 声音设计与混音库 |
+| 鼓的 EQ、压缩、并行压缩 | 混音的事；本包只给 `mix_intent` 这份意图 |
 
 > `mc-rhythm-groove`（L1）管**节奏本身是什么**；本 skill 管**怎么把它打出来像人**。
 > 风格鼓型的**选型**（哪个家族、多快、什么 feel）是工序，归这里；**模板**（逐小节写死的 pattern）是风格，归 L3。
@@ -400,6 +400,6 @@ DAW 的 humanize/randomize 功能。**放在最后用，不是第一选择**—�
   （On Looseness / Linear Drumming / Ghost Notes / Top, Bottom, Left, Right / Randomness and Responsibility）。页码为该书页。
 - **文海良《编曲》**（流行音乐学院系列）——§7 全部（贝司与底鼓的三形态 p0044–0047、
   贝司写作要求 p0047、贝司的点/线形态 p0043）；鼓组各件的编配规则见 [reference.md](reference.md)。
-- 日式包 `jp-arrangement` 的打ち込み 部分——补充。
-- 实测数据出自 仓库实验记录「规则佐证第一轮」（62 首 Cambridge-MT 多轨）。
+- 《プロの曲作りが分かる本》、《プロの曲作りテクニック》的打ち込み 部分——补充。
+- 实测数据来自 62 首 Cambridge-MT 多轨的统计。
 - 各风格的具体鼓型库、velocity 参数表在 [reference.md](reference.md)。

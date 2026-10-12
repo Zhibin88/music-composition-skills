@@ -9,7 +9,7 @@ description: Melody writing (旋律法) - what a melodic line expresses and how 
 > 所有的表现力都来自这个运动的**方向、幅度、时值、拍位**四件事。
 
 这个 skill 管的是**这条线本身**——不管它配什么和弦（那是 `mc-harmony`），
-也不管它配什么词（那是**作词库**）。
+也不管它配什么词（那是**作词**的事）。
 
 ## 按任务读哪几节
 
@@ -34,13 +34,15 @@ description: Melody writing (旋律法) - what a melodic line expresses and how 
 | 多声部的独立与避免平行 | `mc-counterpoint` |
 | 转调 | `mc-modulation` |
 | 节奏型本身 | `mc-rhythm-groove` |
-| 字怎么安到音上、倒字、押韵 | **作词库 `lyric-writing`** |
+| 字怎么安到音上、倒字、押韵 | **作词**的事 |
 | 人声怎么唱（气声/力度/修音） | `mc-vocal-direction` |
 | 旋律用什么乐器奏 | `mc-orchestration` |
 | 调式音阶的完整目录 | [reference.md](reference.md) |
 
-> ★ 与作词库的分界特别重要：**本 skill 管"这条线好不好听、好不好唱"，
-> 作词库管"这些字能不能安上去"。** 符割り、字余り、倒字全在那边。
+> ★ 与作词的分界特别重要：**本 skill 管"这条线好不好听、好不好唱"，
+> 作词管"这些字能不能安上去"。** 符割り、字余り、倒字全在那边。
+> 本 skill 要用的只有两条推论：先词后曲时，同一首歌的歌词从 `meta.upstream.lyrics` 读，每行几个字就要几个音（中文一字一音节），一行是一个乐句；
+> 中文词的字调会限制大跳落在哪个字上（`mc-style-chinese-pop` §3.2）。没有歌词时，旋律只对自己负责。
 
 ---
 
@@ -389,10 +391,10 @@ description: Melody writing (旋律法) - what a melodic line expresses and how 
 
 ## 附：来源
 
-- **日式包 `jp-melody-writing`**——§2–§9 的主干。
-  原书为日本旋律作法实务系列。**已移出的部分**：
-  词曲对齐（原 §8）→ **作词库**；曲式与整首组装（原 §10）→ `mc-form`；
-  调式音阶目录（原 §6）→ [reference.md](reference.md)。
+- **高山博《ポピュラー音楽作曲のための旋律法 増補版》**——§2–§9 的主干。
+  **书里不在本 skill 的部分**：
+  词曲对齐 → 作词的事，不在本包；曲式与整首组装 → `mc-form`；
+  调式音阶目录 → [reference.md](reference.md)。
 - **Jimmy Kachulis《The Songwriter's Workshop: Melody》**——
   动机四型（并列/相近/倾斜/对比）与调式旋律（大调布鲁斯、混合利底亚、多利亚、五声）
   整理在 [reference.md](reference.md)。

@@ -31,7 +31,7 @@ description: EDM and club music as a style layer (电子舞曲风格层) - a for
 | 合成器音色的**设计方法** | `mc-sound-design`（★ 配方表在它的 reference，含 Detroit techno / Electro House / IDM 贝斯） |
 | 量化与律动的通用原理 | `mc-rhythm-section` §2 |
 | 频段预算 | `mc-texture-layering` |
-| EQ / 压缩的参数 | 出库混音库（★ 竹内那本的 EQ/压缩章归那儿） |
+| EQ / 压缩的参数 | 混音的事（★ 竹内那本的 EQ/压缩章也是，本包只取意图，归 `mc-mix-intent`） |
 | 曲式的通用原理 | `mc-form` |
 | DJ 技术、现场演出 | 不做 |
 
@@ -254,7 +254,7 @@ four-on-the-floor 底鼓起
 
 ## 8. 实测：EDM 与别的风格
 
-仓库实测语料 里 edm 10 首：
+Cambridge-MT 多轨里 edm 10 首的实测（pop、jazz 各 10 首作对照）：
 
 | 指标 | edm | pop | jazz |
 |---|---|---|---|
@@ -304,8 +304,8 @@ beat tracking 在电子音乐上有倍频误判（68 显然是 136 的一半）�
 
 ## 附：来源
 
-- **日式包 `jp-song-structure` §II.5**（EDM/俱乐部变体）——§3、§5 的主干
+- **《プロの曲作りが分かる本》**（EDM/俱乐部的段落变体）——§3、§5 的主干
 - **DeSantis《Making Music》**——§3.3 的分段单位（p0298–0300）、§6 的量化判断（p0154）
 - **野崎貴朗《圖解合成器音樂創作法》**——§7 的全部配方
-- **实测**：仓库实测语料（edm 10 首）
+- **实测**：Cambridge-MT 多轨实测（edm 10 首）
 - **竹内一弘《EDM 制作》**——混音章归 `mc-mix-intent`

@@ -185,7 +185,7 @@ city pop 通常用**交织式**（`mc-rhythm-section` §7.1）——
 
 ### 7.1 ★ 一条实测：R&B 是最"减法"的风格
 
-仓库实测语料 里 hiphop-rnb 10 首：
+Cambridge-MT 多轨里 hiphop-rnb 10 首的实测：
 
 | 指标 | hiphop-rnb | pop | jazz |
 |---|---|---|---|
@@ -271,6 +271,6 @@ city pop 通常用**交织式**（`mc-rhythm-section` §7.1）——
 
 - ★ **`mc-workflow/example-01-citypop.yaml`** —— 本 skill 的主要依据。
   一份完整填好的 ARR-SPEC，**20 条自查全过**，可直接当模板改。
-- **实测数据**：仓库实测语料（hiphop-rnb 10 首）
+- **实测数据**：Cambridge-MT 多轨实测（hiphop-rnb 10 首）
 - 和声语汇：`mc-progressions` [reference.md](../mc-progressions/reference.md) §2、§3
 - 本 skill 建立在 example-01 与通用层之上：city pop 的"规则"基本就是**爵士和声 + 流行结构 + 一组特定音色**。

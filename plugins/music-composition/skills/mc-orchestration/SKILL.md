@@ -52,7 +52,7 @@ description: Orchestration (配器) at the decision level - which instruments ca
 | 合成器音色怎么做 | `mc-sound-design` |
 | 和声本身（用什么和弦） | `mc-harmony` |
 | 声部进行、平行五度 | `mc-counterpoint` |
-| EQ、混响、声像 | 出库 → 声音设计与混音库 |
+| EQ、混响、声像 | 混音的事；意图写进 `mix_intent`（`mc-mix-intent`） |
 | **逐乐器音域表、技法记谱、移调法** | 弦乐组与竖琴在 [reference.md](reference.md) §2.1–2.3（排列法的色调 §2.3.6），木管组 §2.4（排列五式 §2.4.5），铜管组 §2.5；民乐四组在 [reference-minyue.md](reference-minyue.md) §7；打击乐在 [reference-percussion.md](reference-percussion.md)，竖琴与键盘在 [reference-keyboard-harp.md](reference-keyboard-harp.md)；杨立青组合法体系在 reference-yang-strings／winds／brass／tutti 四个文件 |
 | 民乐总谱的乐器顺序、分部标记、八度记谱、编制人数 | **reference-minyue.md §8** |
 

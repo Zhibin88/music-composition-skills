@@ -260,7 +260,7 @@ description: Rhythm and groove as musical material (节奏与律动) - what a rh
 
 ## 附：来源
 
-- **日式包 `jp-composition-basics` §2 ＋ `jp-melody-writing` §5**——全部主干。
+- **《できる ゼロからはじめる作曲 超入門》、《もっと！思いどおりに作曲ができる本》第 1 章＋高山博《ポピュラー音楽作曲のための旋律法 増補版》讲音长与节奏的一章**——全部主干。
 - **归别处的部分**：鼓组基本型与 GM 映射、velocity 数值、fill 的扩展规则（1→2→4→8 小节）
   → `mc-rhythm-section` [reference.md](../mc-rhythm-section/reference.md)；
   旋律的时值设计 → `mc-melody` §5。

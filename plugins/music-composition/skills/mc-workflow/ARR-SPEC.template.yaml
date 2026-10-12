@@ -24,6 +24,10 @@ meta:
   # tempo_map: [{bar: 1, bpm: 96}]
   target_duration: "0:00"      # ★ lint#14 必须与 Σbars×拍速 一致（±10%）
   deliverable: [full_mix]      # full_mix / stems / midi / musicxml / chordpro / abc
+  upstream:                    # 有就读，没有就按本包自己的分析走；来自谁不重要（schema §5.2）
+    brief: ""                  # 需求的出处与原话；没有写 none
+    lyrics: {}                 # 同一首歌的歌词：{source, flow: 先曲后词|先词后曲, shared, sections: [{id, lines: []}]}；先词后曲时 shared 六项锁死（schema §5.4）
+    picture: {}                # 要配合的画面：{source, sec, hits: [{at_sec, what}], note}
 
 # ─────────────────────────────────────────────────────────
 # 动笔前必填表 —— 四项不填齐不许往下写 form
@@ -120,7 +124,7 @@ vocal:
   register_arc: ""             # 与 form[].melody_register 一致
 
 # ─────────────────────────────────────────────────────────
-# 混音意图（只写意图，EQ/压缩/母带归库三）
+# 混音意图（只写意图，EQ/压缩/母带是混音的事）
 # ─────────────────────────────────────────────────────────
 mix_intent:
   mood: ""                     # ★ 一句话，对其余决定有否决权
@@ -166,3 +170,11 @@ checks:
     - "[ ] 至少一段的 melody_register 与相邻段落明显不同"
     - "[ ] 全曲有一处该说的地方没说（留白），写明在哪："
   exemptions: []               # 豁免 lint 某条时，在此写明条号与理由
+
+# ─────────────────────────────────────────────────────────
+# 消息通道（schema §5.3）：公共区，任何一方都可以写；读不到回话就当没有，本包不等待
+# ─────────────────────────────────────────────────────────
+messages: []
+# 一条：{from: music, to: sound, about: "mix_intent.dynamics", says: "要对方做什么、为什么", status: open}
+# from / to 封闭集合：music（本包）lyrics sound editing shot-design writing production，两者不同
+# status：open（发出未回）/ answered（回了话，字段没改）/ accepted（已照它改了字段）/ rejected（reply 写理由）

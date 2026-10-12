@@ -34,7 +34,7 @@ description: J-pop as a style layer (日式流行风格层) - the chorus-centred
 | 能量曲线、减法、hook 布局 | `mc-arrangement-arch` |
 | 打ち込み 的实现 | `mc-rhythm-section` |
 | 演唱设计 | `mc-vocal-direction` |
-| 词曲对齐（符割り、字余り） | **作词库 `lyric-writing`** |
+| 词曲对齐（符割り、字余り） | **作词**的事；本 skill 只管旋律与段落，同一首歌的歌词从 `meta.upstream.lyrics` 读 |
 
 > ★ 一个提醒：**日式作曲法里的通用部分都在通用层**（L1 的旋律/和声/曲式，L2 的打ち込み/演唱）。
 > **本 skill 只写"确实是 J-POP 特有"的部分。**
@@ -261,8 +261,8 @@ description: J-pop as a style layer (日式流行风格层) - the chorus-centred
 
 ## 附：来源
 
-- **日式包 `jp-song-structure` §IV、§V**——本 skill 的全部主干。
-  ★ 该包的其余部分已升到通用层：
+- **《プロの曲作りが分かる本》＋高山博《ポピュラー音楽作曲のための旋律法 増補版》**——本 skill 的全部主干。
+  ★ 这两本书里不只属于 J-POP 的部分在通用 skill：
   段落术语与曲式模板 → `mc-form`；hook 与结尾 → `mc-arrangement-arch`；
   反予定調和 → `mc-melody` §8；段落对比与逐段编制表 → `mc-form` [reference.md](../mc-form/reference.md)。
 - 日式风格分类

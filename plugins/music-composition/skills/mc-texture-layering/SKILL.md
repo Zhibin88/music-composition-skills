@@ -30,7 +30,7 @@ description: Texture and spectral layering (织体与频谱分层) - arranging a
 |---|---|
 | 用哪件乐器、混合音色怎么混 | `mc-orchestration` |
 | 什么时候进场退场、能量曲线 | `mc-arrangement-arch` |
-| 具体的 EQ 频点、压缩比、母带 | 出库 → 声音设计与混音库 |
+| 具体的 EQ 频点、压缩比、母带 | 混音的事；本包只给 `mix_intent` 这份意图 |
 | 段落让路的**意图**（哪段谁让谁） | `mc-mix-intent`（本 skill 管**结构性**的分层，它管**段落性**的让路） |
 | 鼓组内部的层次 | `mc-rhythm-section` |
 
@@ -308,4 +308,4 @@ description: Texture and spectral layering (织体与频谱分层) - arranging a
 - **Howard & Angus《音乐声学与心理声学》**（Acoustics and Psychoacoustics）——
   §3 的响度／谐波／歌唱者共振峰、§4.2 的掩蔽不对称与时间掩蔽、§4.5 的响度叠加；临界频带的尺子在 reference §1.1。页码为中译本页。
 - 混音侧的对应手法见 **Izhaki《混音指南》**——**只取频段预算与意图的部分**，
-  EQ/压缩实操出库到声音设计与混音库。
+  EQ/压缩实操是混音的事，本包不收。

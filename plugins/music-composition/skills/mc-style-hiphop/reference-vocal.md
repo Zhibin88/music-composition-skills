@@ -67,29 +67,29 @@ Charnas《Dilla Time: The Life and Afterlife of J Dilla》（Farrar, Straus and 
 
 1 Wrong · 2 Straight Time/Swing Time · 3 Play Jay · 4 Machine Time · 5 Dee Jay · 6 Sample Time · 7 Jay Dee · **8 Dilla Time** · 9 Partners · 10 Pay Jay · 11 Warp Time · 12 J Dilla · 13 Zealots · 14 Micro Time · 15 Descendants/Disciples · 16 Fragments
 
-本 skill 引用的块号与它们讲的内容：
+本 skill 引用的章与它们讲的内容（epub 无页码，按笔记核对到章；书末的记者手记、开篇的作者按不算章号）：
 
-| 块 | 内容 |
+| 位置 | 内容 |
 |---|---|
-| 1 | Dilla Time 的定义；"他是程序员不是鼓手"；Jazzy Jeff 的 method-vs-feeling |
-| 2 | 听整首歌找"深处的一个元素"；D'Angelo 录音室的 backphrasing |
-| 8 | MPC60 的 Timing Correct 原话；truncate → loop & layer → 用小节数定段长；非四拍循环 |
-| 9 | Roger Linn 的 shuffle 量：50/50、66/34、58/42、54/46 |
-| 11 | 滤高频让爵士采样"无形而阴郁"；《Summer Madness》切出新和声 |
-| 12 | 《Runnin'》：底鼓抢、军鼓听起来拖；线性编到第 20 小节；Busta 为痉挛底鼓改韵式 |
-| 14 | 放慢 Baden Powell；六拍采样撞四拍 beat；齐声吟唱；对着空 click 录 verse |
-| 16 | conflicted time 的硬定义；短–长–短–长 vs 均匀 hat；抢拍军鼓约 65 ms；逐件 swing 与 Shift Timing；7 小节 loop 对 4 小节 beat |
-| 17 | 一小节 192 份、军鼓提前 5 份；真鼓手退到五、六、七连音；偏移必须恒定 |
-| 20 | Jazzy Jeff 的配方：军鼓后挪、hat 前挪，复制 pattern 微改再串 |
-| 21 | woozy, drunken rhythms |
-| 24 | hi-hat 一分为二、延迟 11 ms 做 flam；噪声门塑 pocket |
-| 27 | "kick is late, snare is early"；把录好的人声整体向右滑 |
-| 29 | 采样被放慢到"无法辨认" |
-| 31 | 混音要求："I want this to sound like a cassette." |
-| 39 | 两个脉冲相差约 85 ms |
-| 41 | the lope：少说、留不完整，和声只留"虚线而不是实线" |
-| 42 | "I need that sloppy!"；《Complexion》第三段前换时间感 |
-| 46 | 反驳"关掉量化就是 Dilla"的传说 |
+| 作者按 | Dilla Time 的定义；"他是程序员不是鼓手"；Jazzy Jeff 的 method-vs-feeling |
+| 第 1 章 Wrong | 听整首歌找"深处的一个元素"；D'Angelo 录音室的 backphrasing |
+| 第 5 章 Dee Jay | MPC60 的 Timing Correct 原话；truncate → loop & layer → 用小节数定段长；非四拍循环 |
+| 第 6 章 Sample Time | Roger Linn 的 shuffle 量：50/50、66/34、58/42、54/46 |
+| 第 7 章 Jay Dee | 滤高频让爵士采样"无形而阴郁"；《Summer Madness》切出新和声 |
+| 第 7 章 Jay Dee | 《Runnin'》：底鼓抢、军鼓听起来拖；线性编到第 20 小节；Busta 为痉挛底鼓改韵式 |
+| 第 7 章 Jay Dee | 放慢 Baden Powell；六拍采样撞四拍 beat；齐声吟唱；对着空 click 录 verse |
+| 第 8 章 Dilla Time | conflicted time 的硬定义；短–长–短–长 vs 均匀 hat；抢拍军鼓约 65 ms；逐件 swing 与 Shift Timing；7 小节 loop 对 4 小节 beat |
+| 第 8 章 Dilla Time | 一小节 192 份、军鼓提前 5 份；真鼓手退到五、六、七连音；偏移必须恒定 |
+| 第 9 章 Partners | Jazzy Jeff 的配方：军鼓后挪、hat 前挪，复制 pattern 微改再串 |
+| 第 9 章 Partners | woozy, drunken rhythms |
+| 第 10 章 Pay Jay | hi-hat 一分为二、延迟 11 ms 做 flam；噪声门塑 pocket |
+| 第 11 章 Warp Time | "kick is late, snare is early"；把录好的人声整体向右滑 |
+| 第 12 章 J Dilla | 采样被放慢到"无法辨认" |
+| 第 12 章 J Dilla | 混音要求："I want this to sound like a cassette." |
+| 第 14 章 Micro Time | 两个脉冲相差约 85 ms |
+| 第 15 章 Descendants/Disciples | the lope：少说、留不完整，和声只留"虚线而不是实线" |
+| 第 15 章 Descendants/Disciples | "I need that sloppy!"；《Complexion》第三段前换时间感 |
+| 记者手记（Reporter's Notes and Sources，书末） | 反驳"关掉量化就是 Dilla"的传说 |
 
 ---
 
@@ -97,31 +97,31 @@ Charnas《Dilla Time: The Life and Afterlife of J Dilla》（Farrar, Straus and 
 
 《Dilla Time》里可以直接抄进 `offset_ms` 的几组量，正文 §3.6 之外的部分：
 
-| 手法 | 数值 / 做法 | 块 |
+| 手法 | 数值 / 做法 | 章 |
 |---|---|---|
-| 别人拆出来的配方 | DJ Jazzy Jeff 试遍量化设置都不对，最后发现是：**军鼓往后挪一点（听感抢拍）、hi-hat 往前挪**；再把 pattern 复制几份、每份微改、串起来 | 20 |
-| 另一个拆法 | Phonte 的鼓手朋友总结为 **"kick is late, snare is early"** | 27 |
-| 两个脉冲的距离 | Danielsen 量 D'Angelo《Left and Right》：沙锤/吉他定一个速度，鼓 loop 暗示另一个稍早的脉冲，**两者相差约 85 ms**，整首歌争夺注意力 | 39 |
-| 人声也可以挪 | 9th Wonder 把一句录好的人声在时间线上**整体向右滑**一点，"僵"变"松"——**延迟传达 cool** | 27 |
-| 用效果器做 flam | 把 hi-hat 信号一分为二，一路**延迟 11 ms**，两声之间就是 flam；噪声门改鼓声起止时间来塑 pocket | 24 |
+| 别人拆出来的配方 | DJ Jazzy Jeff 试遍量化设置都不对，最后发现是：**军鼓往后挪一点（听感抢拍）、hi-hat 往前挪**；再把 pattern 复制几份、每份微改、串起来 | 第 9 章 |
+| 另一个拆法 | Phonte 的鼓手朋友总结为 **"kick is late, snare is early"** | 第 11 章 |
+| 两个脉冲的距离 | Danielsen 量 D'Angelo《Left and Right》：沙锤/吉他定一个速度，鼓 loop 暗示另一个稍早的脉冲，**两者相差约 85 ms**，整首歌争夺注意力 | 第 14 章 |
+| 人声也可以挪 | 9th Wonder 把一句录好的人声在时间线上**整体向右滑**一点，"僵"变"松"——**延迟传达 cool** | 第 11 章 |
+| 用效果器做 flam | 把 hi-hat 信号一分为二，一路**延迟 11 ms**，两声之间就是 flam；噪声门改鼓声起止时间来塑 pocket | 第 10 章 |
 
 ## 7. 术语表
 
 | 术语 | 释义 | 出处 |
 |---|---|---|
-| **第三种时间感 / Dilla Time** | 直拍与摇摆**同时并置**产生的时间感；不是两者之间的中点，也不是渐变 | 块 1、块 16 |
-| **conflicted time** | 同一句话的另一种说法：为最大音乐性与最大意外而**刻意培养的节奏摩擦** | 块 16 |
-| **Timing Correct** | MPC 上的量化功能；可以用在全部声音、部分声音或都不用——"部分"是关键 | 块 8 |
-| **Shift Timing** | 按 tick 把某一件声音整体前后挪 | 块 16 |
-| **shuffle** | 把每个偶数十六分音符延后的比例：50/50 直、66/34 三连音摇摆、58/42 与 54/46 在两者之间 | 块 9 |
-| **rushed snare（抢拍军鼓）** | 军鼓比反拍提前发声（约 65 ms 量级），而 hi-hat 守网格 | 块 16 |
-| **the lope** | 描述这种律动质感的说法：步态式的、少说、留不完整 | 块 41 |
+| **第三种时间感 / Dilla Time** | 直拍与摇摆**同时并置**产生的时间感；不是两者之间的中点，也不是渐变 | 作者按、第 8 章 |
+| **conflicted time** | 同一句话的另一种说法：为最大音乐性与最大意外而**刻意培养的节奏摩擦** | 第 8 章 |
+| **Timing Correct** | MPC 上的量化功能；可以用在全部声音、部分声音或都不用——"部分"是关键 | 第 5 章 |
+| **Shift Timing** | 按 tick 把某一件声音整体前后挪 | 第 8 章 |
+| **shuffle** | 把每个偶数十六分音符延后的比例：50/50 直、66/34 三连音摇摆、58/42 与 54/46 在两者之间 | 第 6 章 |
+| **rushed snare（抢拍军鼓）** | 军鼓比反拍提前发声（约 65 ms 量级），而 hi-hat 守网格 | 第 8 章 |
+| **the lope** | 描述这种律动质感的说法：步态式的、少说、留不完整 | 第 15 章 |
 | **half-time feel（半拍感）** | 军鼓落在 3 拍，听感速度减半；`tempo` 写实际 BPM，`groove.feel` 写 halftime | Drummer's Bible p0109 |
 | **break** | 唱片里只剩鼓（或鼓与打击乐）的一段；早期 DJ 把它隔离出来循环 | Schloss p0046–0051 |
 | **looping** | 采一或多小节几乎不改地重复 | Schloss p0121 |
 | **chopping** | 切成更小片段重新排序，使连续演奏听起来像拼贴 | Schloss p0166 |
 | **flipping** | 任何实质性的创造性改变 | Schloss p0179 |
-| **truncate** | 定死采样的起点与终点 | 块 8 |
+| **truncate** | 定死采样的起点与终点 | 第 5 章 |
 | **locking up** | 各元素进入自我维持的关系——**锁上了才叫 beat** | Schloss p0154 |
 | **stabs** | 刺穿表面织体后迅速消退的短促声音（guitar stabs、horn stabs）；最常用的加减单位 | Schloss p0217 |
 | **digging（in the crates）** | 找稀有唱片的过程；四个附带功能：连上 DJ 传统、paying dues、自我教育、社交 | Schloss p0094、p0106 |
@@ -147,7 +147,7 @@ Charnas《Dilla Time: The Life and Afterlife of J Dilla》（Farrar, Straus and 
 | **808** | 在这里指低频正弦贝斯音，兼作底鼓或低音声部；纯正弦要补第三泛音（十二度）才在小喇叭上听得见 | SKILL §5.1；野崎 p0113 |
 
 ## 8. 7.2 ★ flow 的要素：它怎么落在网格上
-这一小节写的是 flow **与拍的关系**——它决定 `vocal.phrasing` 和 `groove.push_pull` 里人声那一行怎么写。押韵密度、多音节韵怎么写归作词库。
+这一小节写的是 flow **与拍的关系**——它决定 `vocal.phrasing` 和 `groove.push_pull` 里人声那一行怎么写。押韵密度、多音节韵怎么写是作词的事。
 
 **两条地基**：
 - **重音落拍**：除非该拍休止，**重音音节必须与 1、2、3、4 拍同时发出**——只有落在四拍上的重音负责让词和音乐同步，这叫 **in the pocket**（《How to Rap》p0084–0085）。
@@ -169,7 +169,7 @@ Charnas《Dilla Time: The Life and Afterlife of J Dilla》（Farrar, Straus and 
 - 音量 ★ 不写"大声点"（`mc-vocal-direction` §2.2），写**哪一段用哪一档**（p0082–0091）；音色上，伴奏乐器多时把声音调成"像乐器之一"，**随 beat 流动而不是切过它**（p0093–0096）。
 - 拉长句首词开启一段、拉长句尾词让声音停留（**拉长会把后面的词往后推**）；口吃与重复放在段落入口与 **fill 位**；长 verse 先算气（p0125–0153）。
 
-**规则**：hook 可以频繁换声，verse 保持一致（《How to Rap》p0263）；不同角色/情境用 **punch-in** 换声（p0289）；一次录完的 take 保留破音等瑕疵，"更真、更原始"（p0293）；情绪要**让人从声音里听到**（《How to Rap 2》p0172–0175）；Dilla 侧的同一件事——"少说，留不完整"（块 41）。
+**规则**：hook 可以频繁换声，verse 保持一致（《How to Rap》p0263）；不同角色/情境用 **punch-in** 换声（p0289）；一次录完的 take 保留破音等瑕疵，"更真、更原始"（p0293）；情绪要**让人从声音里听到**（《How to Rap 2》p0172–0175）；Dilla 侧的同一件事——"少说，留不完整"（第 15 章）。
 
 ## 10. 7.4 rap 段的结构：verse、hook、bridge、ad-lib
 **默认数字**：verse **16 小节**（"a 16"，公式是三段 16；story rap 上限 32，《How to Rap》p0206–0209），verse 里最难的是**第 1–2、9–10、15–16 小节**（p0210）；hook **4 或 8 小节**，词比 verse 简单、密度低、拖长一点，**旋律化的 hook 比说唱 hook 更受欢迎**（p0200–0202）；hook 旋律常是第一句升调"提问"、第二句降调"回答"（《How to Rap 2》p0162–0164）；ad-lib 更常见的是**只叠关键词**——Twista 只重叠**每小节最后一个词**（《How to Rap》p0295）。
@@ -191,7 +191,7 @@ Charnas《Dilla Time: The Life and Afterlife of J Dilla》（Farrar, Straus and 
 
 **⑤ 人声要在调上。** rap 的语调音高与 beat 的调严重不合会"刺耳"，要调整到听不到不协和为止（《How to Rap》p0267–0268）；故意跑调是另一回事，旋律型 hook 要按 MC 的总体音高定调（《How to Rap 2》p0155、p0164–0165）。
 
-**⑥ 时间感的对接。** 人声可以整体后挪（块 27）；Busta Rhymes 为痉挛式的底鼓**改了韵式**贴它的"结巴步"（块 12）；Kendrick《Complexion》在第三段前把直拍 beat 淡出、只剩和弦，几秒后一个"内部冲突的"beat 蹒跚进入——**同一段人声下面换时间感**可以写进 `form[].events`（块 42）。采样带来的 swing 换个 beat 就没有了（《How to Rap 2》p0044）。
+**⑥ 时间感的对接。** 人声可以整体后挪（第 11 章）；Busta Rhymes 为痉挛式的底鼓**改了韵式**贴它的"结巴步"（第 7 章）；Kendrick《Complexion》在第三段前把直拍 beat 淡出、只剩和弦，几秒后一个"内部冲突的"beat 蹒跚进入——**同一段人声下面换时间感**可以写进 `form[].events`（第 15 章）。采样带来的 swing 换个 beat 就没有了（《How to Rap 2》p0044）。
 
-**⑦ 先人声后 beat 也行。** MC 对着 click track 录，再围绕人声建 beat——"把人声当乐器、围绕它构建，像 remix 一样"（《How to Rap》p0193–0194）；Slum Village《Fan-Tas-Tic》的 verse 就是先对着空白 click 录的（块 14）。
+**⑦ 先人声后 beat 也行。** MC 对着 click track 录，再围绕人声建 beat——"把人声当乐器、围绕它构建，像 remix 一样"（《How to Rap》p0193–0194）；Slum Village《Fan-Tas-Tic》的 verse 就是先对着空白 click 录的（第 7 章）。
 

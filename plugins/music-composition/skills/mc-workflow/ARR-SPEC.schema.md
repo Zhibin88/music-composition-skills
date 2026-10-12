@@ -1,15 +1,15 @@
 # ARR-SPEC v1.0 —《编曲规格单》规范
 
-> 本库唯一的交接物。一物四用：对外交接、AB 测试对象、编译源（→Suno／YuE／MusicXML／MIDI／ChordPro）、生成后校验基准。
-> 配套文件：`ARR-SPEC.template.yaml`（空模板）、`example-*.yaml`（填好的示例）、20 条自查见 `mc-workflow` §3.0（仓库内部另有同名 lint 脚本，不随插件发布）
+> 本库唯一的交接物。一物四用：对外交接（对外接口见 §5）、AB 测试对象、编译源（→Suno／YuE／MusicXML／MIDI／ChordPro）、生成后校验基准。
+> 配套文件：`ARR-SPEC.template.yaml`（空模板）、`example-*.yaml`（填好的示例）、20 条自查见 `mc-workflow` §3.0
 >
 > **每个字段都有去向**（可执行／桥接／仅意图，见 §4），可执行字段的取值用行业格式能直接读的写法：和弦拼写全 ASCII、时间位置结构化、音色带 GM 号、段落名封闭集合。原因只有一个：规格单写完要能不经人手变成 MusicXML 领奏谱、MIDI 骨架、ChordPro 和 ABC，交给乐手、DAW、吉他手和模型。
 
 ## 0. 使用纪律
 
-1. **`intent` 四项不填齐，不许往下写 `form`。** 这是动笔前必填表，作用等于剧本包的"这场戏的价值转折是什么"。
+1. **`intent` 四项不填齐，不许往下写 `form`。** 这是动笔前必填表，作用相当于剧作动笔前先问的"这场戏的价值转折是什么"。
 2. 写完**逐条过 20 条自查**（§2），不过的条目改掉或写明理由再编译。这些是判据不是铁律——写了理由的偏离是合法选择。
-3. 生成回来**先逐字段对照规格**看照做率（仓库内部有度量工具可算成分数）。照做率明显低 → 改规格重生成，**不靠听觉返工**。
+3. 生成回来**先逐字段对照规格**看照做率（参考线见 §3）。照做率明显低 → 改规格重生成，**不靠听觉返工**。
 4. 耳朵只在最后一小步介入：照做率过关后，A/B 打乱、成对比较、同一对听两遍看结论稳不稳。
 5. ★ **后端做不到的项不算它的分。** 每个后端在 `backends.yaml` 里声明 `honors: exact|hint|none`，算照做率时把 `none` 的项**排除计分**，不是给 0 分。
 6. ★ **可执行字段只用 ASCII。** `△ ♭ ♯ ° ø ×` 这些符号人看着舒服，但 MusicXML、ChordPro、ABC 全都不认。规格单存 `maj7 b # dim m7b5 x2`，人看的美观版由渲染层生成。
@@ -34,6 +34,7 @@
 | `tempo_map` | list | ○ | `[{bar: 1, bpm: 96}, …]`，有则 `tempo` 取首项。导出为 MIDI set_tempo 事件与 MusicXML 速度记号 |
 | `target_duration` | str | ✅ | `mm:ss`。**受 lint 第 14 条约束**：必须与小节数×拍速推算一致（±10%） |
 | `deliverable` | list | ✅ | `full_mix` / `stems` / `midi` / `musicxml` / `chordpro` / `abc`，后四个对应 §4 的四个导出目标 |
+| `upstream` | obj | ○ | 有就读的上游：`brief`（需求出处）、`lyrics`（同一首歌的歌词）、`picture`（要配合的画面）。字段与用法见 §5.2；没有就按本包自己的分析走 |
 
 #### 1.1.1 `style_layers` —— 风格混合的分工表 ✦
 
@@ -78,7 +79,7 @@ meta:
 | `listener_situation` | str | ✅ | 在哪听、听第几遍、注意力有多少。决定 hook 出现的早晚和信息密度 |
 | `emotional_arc` | list | ✅ | `[{section, mood, value}]`。**必须有转折**，一路向上等于没写 |
 
-> 为什么设门禁：Suno 的 AI 味不是音色问题，是**没有人做过选择**。这四项就是强迫做选择的地方，等价于作词侧的"只说一件事／对谁说／在哪个时刻／一个贯穿的物件"。
+> 为什么设门禁：Suno 的 AI 味不是音色问题，是**没有人做过选择**。这四项就是强迫做选择的地方。
 > 这一块整体是**仅意图**：行业里没有任何格式存它，导出时整块作为文本随文件走（MusicXML 的 miscellaneous、MIDI 第一小节的 text 事件），不丢"为什么"。
 
 ### 1.2b `material` —— 主题材料（★ `mc-development` 拥有）
@@ -228,7 +229,7 @@ meta:
 
 ### 1.6 `mix_intent`
 
-只写**意图**，不写 EQ 频点／压缩比／母带链（那些归库三）。
+只写**意图**，不写 EQ 频点／压缩比／母带链（那些是混音的事）。
 **参数之间互相牵动**（提人声高频 → 混响音尾变长 → 推子要调 → 压缩参数要调），
 在规格单里钉死一个数值等于替混音师锁死后面四步。这一块除 `sound_stage` 外全是仅意图。
 
@@ -271,7 +272,7 @@ meta:
 
 #### `render.chordpro`
 
-`{transpose: 0}`。段落由 `form[].name` 派生，和弦由 `harmony_letters` 派生，歌词来自 LYR-SPEC。
+`{transpose: 0}`。段落由 `form[].name` 派生，和弦由 `harmony_letters` 派生，歌词来自 `meta.upstream.lyrics.sections`（§5.2）。
 
 ### 1.8 `checks`
 
@@ -300,7 +301,7 @@ meta:
 
 ## 2. 20 条自查（SPEC-LINT）
 
-人工逐条过；仓库内部有同名脚本做同样的检查，不随插件发布。**不过 = 改或写理由**，不是禁止编译。
+人工逐条过。**不过 = 改或写理由**，不是禁止编译。
 
 | # | 检查 | 对抗的默认值 |
 |---|---|---|
@@ -352,10 +353,10 @@ meta:
 | `width_map` | 分段 M/S 比与相关系数 | 是否随段落变化 |
 | `target_duration` | 实际时长 | 相对误差 |
 
-加权得出 **0–100 照做率**（仓库度量工具实现；用户侧按同一张表逐字段对照即可，不必算成数）。
+加权得出 **0–100 照做率**（按同一张表逐字段对照即可，不必算成数）。
 
-> ★ **零点校准**：不相关的、制作精良的成品对本表打分落在 **63–66**。
-> 所以我们把 **82／70** 当参考线，不是 60——这是实验标定值，不是交付门槛。
+> ★ **零点校准**：一份 City Pop 规格（112 BPM、10 段、114 小节）比三首与它无关、制作精良的华语成品，对本表打分落在 **63–66**。
+> 所以我们把 **82／70** 当参考线，不是 60——这是理解量级的参考值，不是交付门槛。
 > 这个校准值必须随权重改动一起重测——**改权重后没重测零点 = 数据不可比**。
 >
 > ★ 一个踩过的坑：把权重从**有区分度**的项（`boundaries`）挪到**没区分度**的项
@@ -391,3 +392,67 @@ meta:
 | ABC | 大模型、YuE2 | 旋律、和弦、歌词行，见 `mc-symbolic-score` |
 
 DAW 私有工程格式与 DAWproject 不对接。`mix_intent` 不找格式，混音意图在行业里就是文字。
+
+`meta.upstream.lyrics.sections[].lines`（歌词行）按可执行导出：MusicXML 的 lyric、ChordPro 的歌词行、ABC 的 `w:` 行。`meta.upstream` 的其余项与 `messages` 不导出，只随规格单走。
+
+---
+
+## 5. 对外接口
+
+这份规格单记的是**一首歌的作曲与编曲决定**。本节写给规格单之外的读者（另一个部门、另一套工具、另一个 agent 都一样），不假设谁在读，只约定数据：交出去的字段（§5.1）、有就读的上游字段（§5.2）、消息通道 `messages`（§5.3）、和歌词那一侧共享的六个字段（§5.4）。本包的 skill 之间也只经这些字段交换。
+
+### 5.1 交出去的字段（按职能）
+
+**先读这几条约定**，下表每一行都照它们理解：
+
+- **决定与意图，不是处方。** 规格单里没有 EQ 频点、压缩比、母带链，没有词，没有画面的剪辑点，这些由各职能自己定；`intent`、`vocal` 与 `mix_intent` 的大部分是仅意图（§4）。
+- **时间位置按小节与拍**（§1.9），都从 1 起。换算成秒：逐小节按 `tempo_map`（没有就用 `tempo`）与 `meter_map`（没有就用 `meter`）累加，一小节＝每小节拍数 × 60 ÷ BPM（四分音符为一拍）；`form[].start_bar` 首尾相接，每段起止秒数都能算出。
+- **id**：`form[].id` 全局唯一，逐段的字段与歌词都按它对齐；`form[].name` 是封闭集合，可以重复（C1、C2 都是 `Chorus`）。`roster[].id` 是 MIDI 轨名、分谱名，也是 `depth_map`、`spectrum_budget`、`sound_stage` 里的名字。
+- **计划与实测**：规格单是计划，音频回来按 §3 逐字段对照；`checks.exemptions` 里写了理由的偏离是有意的选择；`honors: none` 的字段是那个后端做不到的。
+
+| 职能 | 读哪些字段 | 字段怎么理解 |
+|---|---|---|
+| **作词** | 共享六字段（§5.4）；`form[].start_bar／melody_register／melody_range`；`vocal.phrasing／breath_points／chorus_variation`、`hooks.vocal_hook`；`intent.emotional_arc`；符号路径出的旋律 | **段落 id 是词与曲咬合的那一列**：歌词按 `form[].id` 分段，一行一个乐句，中文一字一音节。`breath_points` 是换气位置（段落、行、第几个音节之后），词的断句要和它对上；`melody_register／melody_range` 标出哪段唱得高，高音上的字要经得起唱。`chorus_variation` 是编曲这一侧副歌逐遍的变化（词可以一样，编曲不能一样）；`emotional_arc` 是逐段情绪与转折 |
+| **声音**（混音、母带） | `mix_intent`；`roster`、`depth_map`、`spectrum_budget`、`bass_kick_relation`、`energy_curve`、`subtraction_events`；`vocal.stacking／pitch_policy`；`meta.deliverable` | **`mix_intent` 是意图，不是参数**，EQ、压缩、混响、总线、母带由混音定。`mood` 对其余决定有否决权；`deliberate_imbalance` 带起止小节，是有意的事件；`dynamics.notes` 的段落落差要在母带后还留得住。`spectrum_budget[].resolution` 说明频段冲突已在编曲里解掉；`depth_map` 同组乐器深度一致。`subtraction_events` 是有意留的空处，别被动态处理填上；`pitch_policy` 列的位置有意保留音准偏移，不修准 |
+| **配乐**（为画面写音乐：spotting、cue） | `meta.tempo／tempo_map／meter_map／target_duration`；`form[]`、`energy_curve`；`material`、`hooks.arrangement_hook`；`roster`、`meta.deliverable` | 本包的音乐**结构由曲式定**，时长自己定。用到画面上，段落起止秒数从小节算；`material.motif`、`arrangement_hook` 是可以再用的主题与记忆点。段落边界要跟画面走的，结构归配乐；本包只在 `meta.upstream.picture` 给了时长与卡点时，按它定时长、速度与小节数 |
+| **剪辑环节**（切在哪、剪短、接缝） | 上一行的时间字段；`form[].events`、`roster[].entry／exit`、`subtraction_events`、`groove.fill_policy.bars` | 段落边界是天然的接缝，`fill_policy.bars` 是过门所在小节；`subtraction_events` 是编曲的冲击来源（§1.4），剪短时留着它。`deliverable` 含 `stems` 时交分轨 |
+
+镜头设计按放音拍时读 `meta.tempo／tempo_map`、`form[].start_bar／bars`：交出去以后再改，拍好的素材就对不上，改前先写消息（`to: shot-design`）。商用前，制片与现场看 `backends.yaml` 里所用后端的 `license`。
+
+### 5.2 有就读的上游字段
+
+| 字段 | 装什么 | 本包怎么用 |
+|---|---|---|
+| `meta.upstream.brief` | 需求出处与原话（一句 brief、剧本的一场、cue 表的一条）；没有写 `none` | S0 从这里读起；`intent` 四项仍由本包自己想 |
+| `meta.upstream.lyrics` | 同一首歌的歌词 `{source, flow, shared, sections}`：`source` 是歌词规格单的路径或写明用户给的词；`flow` 取 `先曲后词`／`先词后曲`；`shared` 是先词后曲时读进来的六项 `{form: [{id, name, bars}], tempo, key, persona}`；`sections: [{id, lines}]`，`id` 等于 `form[].id` | **先词后曲时 `shared` 是锁死项**（§5.4），本包照抄；词的字数与句式约束 `form[].bars` 与旋律。`sections[].lines` 是编译用的歌词：领奏谱、ChordPro、ABC `w:` 行、后端的歌词分块都从这里取（`mc-render-compile` §5.3） |
+| `meta.upstream.picture` | 要配合的画面 `{source, sec, hits: [{at_sec, what}], note}`：总时长（秒）、要卡的时刻；按放音拍的写进 `note` | `target_duration`、速度、`form[].bars` 按 `sec` 定；`hits` 落在哪一小节哪一拍，写进 `form[].note` 或 `subtraction_events`。段落边界仍按曲式定 |
+
+- **来自谁不重要**，有就读，没有就按本包自己的分析走：没有 `lyrics`，六项由本包定，出不出词按 `mc-workflow` §2.3；没有 `picture`，时长自己定。
+- 已填的上游字段不改写。冲突时在本包字段里照实写，再给来源的职能写 `messages`；共享六项例外，先词后曲时不改，只发消息。
+
+### 5.3 消息通道 `messages`
+
+顶层列表，每条一件事；和 `checks.exemptions` 一样是公共区，**任何一方都可以写**。
+
+| 字段 | 类型 | 必填 | 说明 |
+|---|---|---|---|
+| `messages` | list | ○ | 每条 `{from, to, about, says, status, reply}`；空列表＝没有消息 |
+| `from`／`to` | enum | ✅ | 职能封闭集合：`music`（本包）`lyrics`（作词）`sound`（声音）`editing`（剪辑环节）`shot-design`（镜头设计）`writing`（剧作）`production`（制片与现场）；两者不同 |
+| `about` | str 或 list | ✅ | 说的是哪里：字段路径（`form[B2].bars`、`mix_intent.dynamics`）、段落 id 或小节 |
+| `says` | str | ✅ | 要对方做什么、为什么；一件事一条 |
+| `status` | enum | ✅ | 发的一方写 `open`；收的一方改成 `answered`（回了话，字段没改）、`accepted`（已照它改了字段）或 `rejected`（不接受） |
+| `reply` | str | ○ | 收的一方写：`accepted` 写改了哪个字段，`rejected` 写理由 |
+
+1. **发**：新加一条，`status: open`，如"D 段比 C2 低 6 dB 是唯一的大落差，母带请留住"（`from: music, to: sound, about: mix_intent.dynamics`）。先词后曲时想改共享六项也走这里（`to: lyrics`）。
+2. **回**：只改写给自己那条的 `status` 与 `reply`，不删别人的条目、不改 `says`。消息本身不改字段：要改的字段仍由它的 owner skill 改（`mc-workflow` §2.1），改完标 `accepted`。
+3. **不等待**：读不到回话就当没有；`open` 不挡自查、不停阶段，交付时原样交出去。数据写在字段里，消息只说哪里、为什么。
+4. 写给本包的（`to: music`）在 S0 开工与每次改规格前读。
+
+### 5.4 与歌曲另一侧共享的六个字段
+
+> **与歌曲另一侧共享的六个字段**：`form[].id`、`form[].bars`、`form[].name`、`meta.tempo`、`meta.key`、`vocal.persona`。两边用同一套段落 id。
+> - **先做的一方定这六项**，后做的一方原样读进来，当锁死项用（`meta.upstream`）。先曲后词：作曲编曲定、作词读；先词后曲：作词定、作曲编曲读，这时词的字数和句式会反过来约束 `form[].bars`。
+> - **后做的一方不改这六项。** 真要改（比如词放不进这几小节），就写一条 `messages` 给先做的一方，说清改哪一项、为什么。对方接受后改自己的规格单，后做的一方再重新读。
+> - 只有一侧、另一侧的规格单不存在时，这六项由本包自己定。
+
+在本规格单里：先词后曲时读进来的六项记在 `meta.upstream.lyrics.shared`；读进来的 `tempo`、`key` 是 `null`（词那边定不出）时由本包定，再发消息告诉 `lyrics`。本包在消息里是 `music`，歌词一侧是 `lyrics`。
